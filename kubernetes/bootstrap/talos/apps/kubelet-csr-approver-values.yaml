@@ -1,0 +1,3 @@
+---
+providerRegex: ^(kube-master-dell-1|kube-worker-msi-1)$
+bypassDnsResolution: true
