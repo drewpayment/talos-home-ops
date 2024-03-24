@@ -1,26 +1,43 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.6.7
+talosVersion: v1.6.5
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.29.3
 
 clusterName: &cluster talos_home_ops
-endpoint: https://192.168.86.210:6443
+endpoint: https://192.168.64.210:6443
 clusterPodNets:
   - "10.69.0.0/16"
 clusterSvcNets:
   - "10.96.0.0/16"
 additionalApiServerCertSans: &sans
-  - "192.168.86.210"
+  - "192.168.64.210"
   - 127.0.0.1 # KubePrism
 additionalMachineCertSans: *sans
 cniConfig:
   name: none
 
 nodes:
+  - hostname: "kube-master-msi-1"
+    ipAddress: "192.168.64.200"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "36:35:BA:A0:47:D3"
+        dhcp: false
+        addresses:
+          - "192.168.64.200/19"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
+        vip:
+          ip: "192.168.64.210"
   - hostname: "kube-master-dell-1"
-    ipAddress: "192.168.86.204"
+    ipAddress: "192.168.64.204"
     installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/
     controlPlane: true
@@ -29,16 +46,33 @@ nodes:
           hardwareAddr: "AE:1A:AA:B3:5C:C0"
         dhcp: false
         addresses:
-          - "192.168.86.204/24"
+          - "192.168.64.204/19"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
-            gateway: "192.168.86.200"
+            gateway: "192.168.86.1"
         vip:
-          ip: "192.168.86.210"
+          ip: "192.168.64.210"
+  - hostname: "kube-master-opti-1"
+    ipAddress: "192.168.64.201"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "BC:24:11:F7:3F:D5"
+        dhcp: false
+        addresses:
+          - "192.168.64.201/19"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
+        vip:
+          ip: "192.168.64.210"
   - hostname: "kube-worker-msi-1"
-    ipAddress: "192.168.86.202"
-    installDisk: "/dev/sde"
+    ipAddress: "192.168.64.202"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/
     controlPlane: false
     networkInterfaces:
@@ -46,11 +80,56 @@ nodes:
           hardwareAddr: "22:68:64:9A:A5:B4"
         dhcp: false
         addresses:
-          - "192.168.86.202/24"
+          - "192.168.64.202/19"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
-            gateway: "192.168.86.200"
+            gateway: "192.168.86.1"
+  - hostname: "kube-worker-dell-1"
+    ipAddress: "192.168.64.203"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "7E:46:B0:2A:C6:79"
+        dhcp: false
+        addresses:
+          - "192.168.64.203/19"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
+  - hostname: "kube-worker-msi-2"
+    ipAddress: "192.168.64.205"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "C2:6C:E1:33:5F:C6"
+        dhcp: false
+        addresses:
+          - "192.168.64.205/19"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
+  - hostname: "kube-worker-opti-1"
+    ipAddress: "192.168.64.206"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "BC:24:11:A8:6A:76"
+        dhcp: false
+        addresses:
+          - "192.168.64.206/19"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
 
 patches:
   # Configure containerd
@@ -91,7 +170,7 @@ patches:
         extraArgs:
           rotate-server-certificates: true
         nodeIP:
-          validSubnets: ["192.168.86.200/24"]
+          validSubnets: ["192.168.86.0/19"]
 
   # Force nameserver
   - |-
@@ -148,7 +227,7 @@ controlPlane:
           extraArgs:
             listen-metrics-urls: http://0.0.0.0:2381
           advertisedSubnets:
-            - "192.168.86.200/24"
+            - "192.168.86.0/19"
 
     # Disable default API server admission plugins.
     - |-

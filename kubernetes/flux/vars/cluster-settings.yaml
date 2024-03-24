@@ -7,4 +7,4 @@ metadata:
 data:
   TIMEZONE: "America/New_York"
   CLUSTER_CIDR: "10.69.0.0/16"
-  NODE_CIDR: "192.168.86.200/24"
+  NODE_CIDR: "192.168.86.0/19"

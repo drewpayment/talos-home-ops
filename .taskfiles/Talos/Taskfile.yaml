@@ -57,7 +57,7 @@ tasks:
     dir: "{{.TALOS_DIR}}"
     cmds:
       - echo "Installing Talos... ignore the errors and be patient"
-      - until talhelper gencommand bootstrap | bash; do sleep 10; done
+      - until talhelper gencommand bootstrap --env-file {{.TALHELPER_SECRET_FILE}} | bash; do sleep 10; done
       - sleep 10
     preconditions:
       - { msg: "Missing talhelper config file", sh: "test -f {{.TALHELPER_CONFIG_FILE}}" }
@@ -91,7 +91,7 @@ tasks:
   fetch-kubeconfig:
     desc: Generate talos kubeconfig
     dir: "{{.TALOS_DIR}}"
-    cmd: until talhelper gencommand kubeconfig --extra-flags "{{.ROOT_DIR}} --force" | bash; do sleep 10; done
+    cmd: until talhelper gencommand kubeconfig --env-file {{.TALHELPER_SECRET_FILE}} --extra-flags "{{.ROOT_DIR}} --force" | bash; do sleep 10; done
 
   soft-nuke:
     desc: Resets nodes back to maintenance mode so you can re-deploy again straight after
