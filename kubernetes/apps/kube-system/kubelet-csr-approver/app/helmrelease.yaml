@@ -21,7 +21,7 @@ spec:
     remediation:
       retries: 3
   values:
-    providerRegex: ^(kube-master-msi-1)$
+    providerRegex: ^(kube-master-msi-1|kube-master-dell-1|kube-master-opti-1)$
     bypassDnsResolution: true
     metrics:
       enable: true
