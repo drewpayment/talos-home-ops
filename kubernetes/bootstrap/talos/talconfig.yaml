@@ -36,6 +36,40 @@ nodes:
             gateway: "192.168.86.1"
         vip:
           ip: "192.168.86.220"
+  - hostname: "kube-master-dell-1"
+    ipAddress: "192.168.86.204"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/1fcfb8683f45e4c10e821378b90af3e5be84bc98c35644b3efe7eb9b6878173b
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          busPath: "0*"
+        dhcp: false
+        addresses:
+          - "192.168.86.204/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
+        vip:
+          ip: "192.168.86.220"
+  - hostname: "kube-master-opti-1"
+    ipAddress: "192.168.86.201"
+    installDisk: "/dev/sda"
+    talosImageURL: factory.talos.dev/installer/1fcfb8683f45e4c10e821378b90af3e5be84bc98c35644b3efe7eb9b6878173b
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          busPath: "0*"
+        dhcp: false
+        addresses:
+          - "192.168.86.201/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.86.1"
+        vip:
+          ip: "192.168.86.220"
 
 patches:
   # Configure containerd
