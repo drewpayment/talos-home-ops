@@ -41,7 +41,11 @@ nodes:
     controlPlane: #{ (item.controller) | string | lower }#
     networkInterfaces:
       - deviceSelector:
+          #% if ((item.talos_nic) | string).startswith('0*') %#
+          busPath: "#{ item.talos_nic }#"
+          #% else %#
           hardwareAddr: "#{ item.talos_nic }#"
+          #% endif %#
         dhcp: false
         #% if bootstrap_talos.vlan %#
         vlans:
