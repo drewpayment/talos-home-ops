@@ -1,8 +1,2 @@
 talos_home_ops-kube-master-msi-1.yaml
-talos_home_ops-kube-master-dell-1.yaml
-talos_home_ops-kube-master-opti-1.yaml
-talos_home_ops-kube-worker-msi-1.yaml
-talos_home_ops-kube-worker-dell-1.yaml
-talos_home_ops-kube-worker-msi-2.yaml
-talos_home_ops-kube-worker-opti-1.yaml
 talosconfig
