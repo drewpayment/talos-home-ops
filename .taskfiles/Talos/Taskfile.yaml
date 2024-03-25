@@ -22,7 +22,12 @@ tasks:
       - task: bootstrap-install
       - task: fetch-kubeconfig
       - task: bootstrap-apps
-      - talosctl health --server=false
+      - task: cluster-health
+
+  cluster-health:
+    desc: Check the health of the Talos cluster
+    dir: "{{.TALOS_DIR}}"
+    cmd: talosctl health --server=false
 
   bootstrap-gensecret:
     desc: Generate the Talos secrets
