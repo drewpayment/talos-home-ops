@@ -47,15 +47,16 @@ spec:
               LOG_LEVEL: debug
     service:
       app:
+        controller: overseerr
         ports:
           http:
             port: 5055
     persistence:
       config:
-        enabled: true
         existingClaim: appdata
-        mountPath: /app/config
-        subPath: overseerr
+        globalMounts:
+          - path: /app/config/overseerr
+            readOnly: false
     ingress:
       app:
         className: external
