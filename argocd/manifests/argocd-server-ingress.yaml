@@ -4,16 +4,12 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    # If you encounter a redirect loop or are getting a 307 response code
-    # then you need to force the nginx ingress to connect to the backend using HTTPS.
-    #
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+    external-dns.home.arpa/enabled: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: external
   rules:
-  - host: argocd.drewpayment.com
+  - host: &host 'argocd.${SECRET_DOMAIN}'
     http:
       paths:
       - path: /
@@ -22,8 +18,8 @@ spec:
           service:
             name: argocd-server
             port:
-              name: https
+              name: http
   tls:
   - hosts:
-    - argocd.drewpayment.com
+    - *host
     secretName: argocd-server-tls # as expected by argocd-server
