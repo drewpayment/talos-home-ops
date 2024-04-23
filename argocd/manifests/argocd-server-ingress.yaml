@@ -4,12 +4,12 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
     external-dns.home.arpa/enabled: "true"
 spec:
   ingressClassName: external
   rules:
-  - host: &host 'argocd.${SECRET_DOMAIN}'
+  - host: &host 'argocd.drewpayment.com'
     http:
       paths:
       - path: /
