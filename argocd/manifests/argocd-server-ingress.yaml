@@ -23,6 +23,8 @@ spec:
             name: argocd-server
             port:
               name: https
+  syncPolicy:
+    automated: {}
   tls:
   - hosts:
     - *host
