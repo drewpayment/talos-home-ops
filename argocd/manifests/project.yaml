@@ -9,6 +9,12 @@ spec:
   description: Homepage project
   sourceRepos:
   - '*'
+  syncPolicy:
+    managedNamespaceMetadata:
+      labels:
+        argocd.argoproj.io/managed-by: argocd
+    syncOptions:
+    - CreateNamespace=true
   destinations:
   - namespace: 'homepage'
     server: https://kubernetes.default.svc
