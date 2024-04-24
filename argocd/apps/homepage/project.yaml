@@ -1,17 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: homepage
+  name: appbundle-homepage
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
   description: Homepage project
+
+  # Allow manifests to deploy from any Git repos
   sourceRepos:
   - '*'
+
+  # Only permit applications to deploy to the namespace listed, * means all namespaces
   destinations:
-  - namespace: 'homepage'
+  - namespace: '*'
     server: https://kubernetes.default.svc
+
+  # Allow all applications to sync
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+  - group: '*'
+    kind: '*'
