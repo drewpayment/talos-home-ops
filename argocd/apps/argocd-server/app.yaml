@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-server-appset
+spec:
+  generators:
+    - git:
+        repoURL: &repo https://github.com/drewpayment/talos-home-ops.git
+        revision: HEAD
+        files:
+          - path: argocd/config/argocd-server/config.yaml
+  template:
+    metadata:
+      name: '{{cluster.name}}-argocd-server-ingress'
+    spec:
+      project: default
+      source:
+        repoURL: *repo
+        targetRevision: HEAD
+        path: argocd/apps/argocd-server/templates
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: argocd
