@@ -1,16 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: ApplicationSet
 metadata:
-  name: root-appbundle-homepage
-  namespace: argocd
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
+  name: homepage-appset
 spec:
-  project: appbundle-homepage
-  destination:
-    namespace: default
-    name: in-cluster
-  source:
-    path: argocd/apps/homepage/templates
-    repoURL: https://github.com/drewpayment/talos-home-ops.git
-    targetRevision: HEAD
+  generators:
+    - git:
+        repoURL: &repo https://github.com/drewpayment/talos-home-ops.git
+        revision: HEAD
+        files:
+          - path: argocd/config/homepage/config.yaml
+  template:
+    metadata:
+      name: '{{cluster.name}}-homepage'
+    spec:
+      project: default
+      source:
+        repoURL: *repo
+        targetRevision: HEAD
+        path: argocd/apps/homepage/templates
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: homepage
