@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: argocd/apps/homepage/templates
+    path: argocd/apps/homepage
     repoURL: https://github.com/drewpayment/talos-home-ops.git
     targetRevision: HEAD
