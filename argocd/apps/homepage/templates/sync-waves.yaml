@@ -11,6 +11,6 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    path: sync-waves
+    path: argocd/apps/homepage/templates
     repoURL: https://github.com/drewpayment/talos-home-ops.git
     targetRevision: HEAD
