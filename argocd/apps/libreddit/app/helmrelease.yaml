@@ -80,10 +80,10 @@ spec:
       app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
           external-dns.home.arpa/enabled: "true"
         hosts:
-          - host: &host 'libreddit.${SECRET_DOMAIN}'
+          - host: &host 'libreddit.drewpayment.com'
             paths:
               - path: /
                 service:
