@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: libreddit-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/drewpayment/talos-home-ops.git
+    targetRevision: HEAD
+    path: argocd/apps/libreddit
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps
