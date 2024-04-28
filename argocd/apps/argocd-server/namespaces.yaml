@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: kubeseal
-  annotations:
-    argocd.argoproj.io/sync-wave: "-1"
