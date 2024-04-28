@@ -1,0 +1,16 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: cluster-external-secrets
+spec:
+  secretStoreRef:
+    kind: SecretStore
+    name: external-secrets-store
+
+  target:
+    name: cluster-external-secrets
+
+  dataFrom:
+    - find:
+        name:
+          regexp: .*
