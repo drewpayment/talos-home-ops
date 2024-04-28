@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: supabase-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: supabase
+    repoURL: oci://registry-1.docker.io/bitnamicharts
+    targetRevision: HEAD
+    helm:
+      releaseName: supabase
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: supabase
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
