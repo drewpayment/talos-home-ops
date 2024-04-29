@@ -11,4 +11,7 @@ spec:
     path: argocd/apps/supabase
   destination:
     server: https://kubernetes.default.svc
-    namespace: apps
+    namespace: superbase
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
