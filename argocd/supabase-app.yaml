@@ -9,7 +9,7 @@ spec:
     chart: supabase
     repoURL: registry-1.docker.io/bitnamicharts
     path: argocd/apps/supabase/charts/supabase
-    targetRevision: 4.0.4
+    targetRevision: 0.24.3
     helm:
       releaseName: supabase
       valueFiles:
