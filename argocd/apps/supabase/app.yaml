@@ -7,13 +7,13 @@ spec:
   project: default
   source:
     chart: supabase
-    repoURL: registry-1.docker.io/bitnamicharts
-    path: supabase
+    repoURL: https://github.com/drewpayment/talos-home-ops.git
+    path: argocd/apps/supabase/charts/supabase
     targetRevision: 4.0.4
     helm:
       releaseName: supabase
       valueFiles:
-      - values.yaml
+      - argocd/apps/supabase/charts/supabase/values.example.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: supabase
