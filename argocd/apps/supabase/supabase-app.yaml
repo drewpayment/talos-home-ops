@@ -7,8 +7,9 @@ spec:
   project: default
   source:
     chart: supabase
-    repoURL: oci://registry-1.docker.io/bitnamicharts
-    targetRevision: HEAD
+    repoURL: registry-1.docker.io/bitnamicharts
+    path: supabase
+    targetRevision: 4.0.4
     helm:
       releaseName: supabase
       valueFiles:
