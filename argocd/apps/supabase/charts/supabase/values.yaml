@@ -59,12 +59,16 @@ secret:
 # If so, make sure to adjust DB_HOST accordingly to point to the right database service.
 db:
   # Enable database provisioning
-  enabled: false
-  environment:
-    POSTGRES_HOST: 192.168.86.142
-    PGPORT: "5432"
-    POSTGRES_PORT: "5432"
-    JWT_EXP: 3600
+  enabled: true
+  image:
+    repository: postgres
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  # environment:
+    # POSTGRES_HOST: 192.168.86.142
+    # PGPORT: "5432"
+    # POSTGRES_PORT: "5432"
+    # JWT_EXP: 3600
   livenessProbe:
     exec:
       command:
@@ -74,6 +78,8 @@ db:
     initialDelaySeconds: 3
   # Additional migration scripts can be defined here
   # config: {}
+  persistence:
+    enabled: false
 
 # Studio Application
 studio:
