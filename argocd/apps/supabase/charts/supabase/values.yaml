@@ -65,8 +65,15 @@ db:
     PGPORT: "5432"
     POSTGRES_PORT: "5432"
     JWT_EXP: 3600
+  livenessProbe:
+    exec:
+      command:
+        - pg_isready
+        - -U
+        - postgres
+    initialDelaySeconds: 3
   # Additional migration scripts can be defined here
-  config: {}
+  # config: {}
 
 # Studio Application
 studio:
