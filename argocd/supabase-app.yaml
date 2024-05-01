@@ -13,7 +13,7 @@ spec:
     helm:
       releaseName: supabase
       valueFiles:
-        - values.example.yaml
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: supabase
