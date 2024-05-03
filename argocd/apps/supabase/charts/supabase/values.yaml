@@ -1,265 +1,265 @@
-# File structure of values.yaml:
-# |-- 1.  Database
-# |-- 2.  Studio
-# |-- 3.  Auth
-# |-- 4.  Rest
-# |-- 5.  Realtime
-# |-- 6.  Meta
-# |-- 7.  Storage
-# |-- 8.  Image Proxy
-# |-- 9.  Kong
-# |-- 10. Analytics
-# |-- 11. Vector
-# |-- 12. Functions
-# |-- 13. Minio
+# # File structure of values.yaml:
+# # |-- 1.  Database
+# # |-- 2.  Studio
+# # |-- 3.  Auth
+# # |-- 4.  Rest
+# # |-- 5.  Realtime
+# # |-- 6.  Meta
+# # |-- 7.  Storage
+# # |-- 8.  Image Proxy
+# # |-- 9.  Kong
+# # |-- 10. Analytics
+# # |-- 11. Vector
+# # |-- 12. Functions
+# # |-- 13. Minio
 
-secret:
-  # jwt will be used to reference secret in multiple services:
-  # Anon & Service key: Studio, Storage, Kong
-  # JWT Secret: Analytics, Auth, Rest, Realtime, Storage
-  jwt:
-    anonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzE0MzYzMjAwLAogICJleHAiOiAxODcyMTI5NjAwCn0.8eR6lJL3QSUKJMg8UlLey_AgQJHusq_OBAQytxFEN5w
-    serviceKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogInNlcnZpY2Vfcm9sZSIsCiAgImlzcyI6ICJzdXBhYmFzZSIsCiAgImlhdCI6IDE3MTQzNjMyMDAsCiAgImV4cCI6IDE4NzIxMjk2MDAKfQ.m9ks4RnQYB-OygQlRYcPneFjABpZBgWwJN1vipQDexo
-    # specify existing secret, which takes precedence over variables above
-    secretRefKey:
-      secret: SUPABASE_JWT_SECRET
-  # database credentials
-  # these fields must be provided even if using external database
-  dashboard:
-    secretRefKey:
-      username: SUPABASE_DASHBOARD_USERNAME
-      password: SUPABASE_DASHBOARD_PASSWORD
-  db:
-    secretRefKey:
-      username: SUPABASE_DB_USERNAME
-      password: SUPABASE_DB_PASSWORD
-      database: SUPABASE_DB_NAME
-  analytics:
-    secretRefKey:
-      apiKey: SUPABASE_LOGFLARE_API_KEY
-  # smtp will be used to reference secret including smtp credentials
-  smtp:
-    secretRefKey:
-      username: SUPABASE_SMTP_USERNAME
-      password: SUPABASE_SMTP_PASSWORD
-  # S3 credentials for storage object bucket
-  # s3:
-  #   # keyId: ""
-  #   # accessKey: ""
-  #   # specify existing secret, which takes precedence over variables above
-  #   # secretRef: ""
-  #   # override secret keys for existing secret refs
-  #   secretRefKey:
-  #     keyId: keyId
-  #     accessKey: accessKey
+# secret:
+#   # jwt will be used to reference secret in multiple services:
+#   # Anon & Service key: Studio, Storage, Kong
+#   # JWT Secret: Analytics, Auth, Rest, Realtime, Storage
+#   jwt:
+#     anonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzE0MzYzMjAwLAogICJleHAiOiAxODcyMTI5NjAwCn0.8eR6lJL3QSUKJMg8UlLey_AgQJHusq_OBAQytxFEN5w
+#     serviceKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogInNlcnZpY2Vfcm9sZSIsCiAgImlzcyI6ICJzdXBhYmFzZSIsCiAgImlhdCI6IDE3MTQzNjMyMDAsCiAgImV4cCI6IDE4NzIxMjk2MDAKfQ.m9ks4RnQYB-OygQlRYcPneFjABpZBgWwJN1vipQDexo
+#     # specify existing secret, which takes precedence over variables above
+#     secretRefKey:
+#       secret: SUPABASE_JWT_SECRET
+#   # database credentials
+#   # these fields must be provided even if using external database
+#   dashboard:
+#     secretRefKey:
+#       username: SUPABASE_DASHBOARD_USERNAME
+#       password: SUPABASE_DASHBOARD_PASSWORD
+#   db:
+#     secretRefKey:
+#       username: SUPABASE_DB_USERNAME
+#       password: SUPABASE_DB_PASSWORD
+#       database: SUPABASE_DB_NAME
+#   analytics:
+#     secretRefKey:
+#       apiKey: SUPABASE_LOGFLARE_API_KEY
+#   # smtp will be used to reference secret including smtp credentials
+#   smtp:
+#     secretRefKey:
+#       username: SUPABASE_SMTP_USERNAME
+#       password: SUPABASE_SMTP_PASSWORD
+#   # S3 credentials for storage object bucket
+#   # s3:
+#   #   # keyId: ""
+#   #   # accessKey: ""
+#   #   # specify existing secret, which takes precedence over variables above
+#   #   # secretRef: ""
+#   #   # override secret keys for existing secret refs
+#   #   secretRefKey:
+#   #     keyId: keyId
+#   #     accessKey: accessKey
 
-# Optional: Postgres Database
-# A standalone Postgres database configured to work with Supabase services.
-# You can spin up any other Postgres database container if required.
-# If so, make sure to adjust DB_HOST accordingly to point to the right database service.
-db:
-  # Enable database provisioning
-  enabled: true
-  image:
-    repository: postgres
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  # environment:
-    # POSTGRES_HOST: 192.168.86.142
-    # PGPORT: "5432"
-    # POSTGRES_PORT: "5432"
-    # JWT_EXP: 3600
-  livenessProbe:
-    exec:
-      command:
-        - pg_isready
-        - -U
-        - postgres
-    initialDelaySeconds: 3
-  # Additional migration scripts can be defined here
-  # config: {}
-  persistence:
-    enabled: false
+# # Optional: Postgres Database
+# # A standalone Postgres database configured to work with Supabase services.
+# # You can spin up any other Postgres database container if required.
+# # If so, make sure to adjust DB_HOST accordingly to point to the right database service.
+# db:
+#   # Enable database provisioning
+#   enabled: true
+#   image:
+#     repository: postgres
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   # environment:
+#     # POSTGRES_HOST: 192.168.86.142
+#     # PGPORT: "5432"
+#     # POSTGRES_PORT: "5432"
+#     # JWT_EXP: 3600
+#   livenessProbe:
+#     exec:
+#       command:
+#         - pg_isready
+#         - -U
+#         - postgres
+#     initialDelaySeconds: 3
+#   # Additional migration scripts can be defined here
+#   # config: {}
+#   persistence:
+#     enabled: false
 
-# Studio Application
-studio:
-  # Enable studio provisioning
-  enabled: true
-  image:
-    repository: supabase/studio
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  environment:
-    STUDIO_DEFAULT_ORGANIZATION: "Verostack"
-    STUDIO_DEFAULT_PROJECT: "Stacks"
-    STUDIO_PORT: "3000"
-    SUPABASE_PUBLIC_URL: https://supabase.drewpayment.com
-    NEXT_PUBLIC_ENABLE_LOGS: "true"
-    # Set value to bigquery to use Big Query backend for analytics
-    NEXT_ANALYTICS_BACKEND_PROVIDER: postgres  # postgres, bigquery
+# # Studio Application
+# studio:
+#   # Enable studio provisioning
+#   enabled: true
+#   image:
+#     repository: supabase/studio
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   environment:
+#     STUDIO_DEFAULT_ORGANIZATION: "Verostack"
+#     STUDIO_DEFAULT_PROJECT: "Stacks"
+#     STUDIO_PORT: "3000"
+#     SUPABASE_PUBLIC_URL: https://supabase.drewpayment.com
+#     NEXT_PUBLIC_ENABLE_LOGS: "true"
+#     # Set value to bigquery to use Big Query backend for analytics
+#     NEXT_ANALYTICS_BACKEND_PROVIDER: postgres  # postgres, bigquery
 
-# Auth Service
-auth:
-  # Enable auth provisioning
-  enabled: true
-  image:
-    repository: supabase/gotrue
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  replicaCount: 1
-  environment:
-    # Override the database hostname if using external database
-    DB_HOST: 192.168.86.142
-    DB_USER:
-      secretRef: SUPABASE_DB_USERNAME
-    DB_PORT: 5432
-    DB_DRIVER: postgres
-    DB_SSL: disable  # disable, allow, prefer, require, verify-ca, verify-full
-    API_EXTERNAL_URL: https://supabase-auth-api.drewpayment.com
-    GOTRUE_SITE_URL: https://supabase-auth.drewpayment.com
-    GOTRUE_URI_ALLOW_LIST: "*"
-    GOTRUE_DISABLE_SIGNUP: "false"
-    GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
-    GOTRUE_MAILER_AUTOCONFIRM: "true"
-    GOTRUE_SMTP_ADMIN_EMAIL: "drew.payment@gmail.com"
-    GOTRUE_SMTP_HOST: "smtp.gmail.com"
-    GOTRUE_SMTP_PORT: "587"
-    GOTRUE_SMTP_SENDER_NAME: "Do Not Reply"
-    GOTRUE_EXTERNAL_PHONE_ENABLED: "false"
+# # Auth Service
+# auth:
+#   # Enable auth provisioning
+#   enabled: true
+#   image:
+#     repository: supabase/gotrue
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   replicaCount: 1
+#   environment:
+#     # Override the database hostname if using external database
+#     DB_HOST: 192.168.86.142
+#     DB_USER:
+#       secretRef: SUPABASE_DB_USERNAME
+#     DB_PORT: 5432
+#     DB_DRIVER: postgres
+#     DB_SSL: disable  # disable, allow, prefer, require, verify-ca, verify-full
+#     API_EXTERNAL_URL: https://supabase-auth-api.drewpayment.com
+#     GOTRUE_SITE_URL: https://supabase-auth.drewpayment.com
+#     GOTRUE_URI_ALLOW_LIST: "*"
+#     GOTRUE_DISABLE_SIGNUP: "false"
+#     GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
+#     GOTRUE_MAILER_AUTOCONFIRM: "true"
+#     GOTRUE_SMTP_ADMIN_EMAIL: "drew.payment@gmail.com"
+#     GOTRUE_SMTP_HOST: "smtp.gmail.com"
+#     GOTRUE_SMTP_PORT: "587"
+#     GOTRUE_SMTP_SENDER_NAME: "Do Not Reply"
+#     GOTRUE_EXTERNAL_PHONE_ENABLED: "false"
 
-# Rest Service
-rest:
-  # Enable postgrest provisioning
-  enabled: false
-  image:
-    repository: postgrest/postgrest
-    pullPolicy: IfNotPresent
-    tag: "latest"
+# # Rest Service
+# rest:
+#   # Enable postgrest provisioning
+#   enabled: false
+#   image:
+#     repository: postgrest/postgrest
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
 
-# Realtime Service
-realtime:
-  # Enable realtime provisioning
-  enabled: false
-  image:
-    repository: supabase/realtime
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  livenessProbe:
-    httpGet:
-      path: /
-      port: 4000
-    initialDelaySeconds: 3
+# # Realtime Service
+# realtime:
+#   # Enable realtime provisioning
+#   enabled: false
+#   image:
+#     repository: supabase/realtime
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   livenessProbe:
+#     httpGet:
+#       path: /
+#       port: 4000
+#     initialDelaySeconds: 3
 
-# Meta Service
-meta:
-  # Enable meta provisioning
-  enabled: false
-  image:
-    repository: supabase/postgres-meta
-    pullPolicy: IfNotPresent
-    tag: "latest"
+# # Meta Service
+# meta:
+#   # Enable meta provisioning
+#   enabled: false
+#   image:
+#     repository: supabase/postgres-meta
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
 
-# Storage Service
-storage:
-  # Enable storage provisioning
-  enabled: false
-  image:
-    repository: supabase/storage-api
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  livenessProbe:
-    httpGet:
-      path: /status
-      port: 5000
-    initialDelaySeconds: 3
-  persistence:
-    enabled: false
+# # Storage Service
+# storage:
+#   # Enable storage provisioning
+#   enabled: false
+#   image:
+#     repository: supabase/storage-api
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   livenessProbe:
+#     httpGet:
+#       path: /status
+#       port: 5000
+#     initialDelaySeconds: 3
+#   persistence:
+#     enabled: false
 
-# imgproxy
-imgproxy:
-  # Enable imgproxy provisioning
-  enabled: false
-  image:
-    repository: darthsim/imgproxy
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  livenessProbe:
-    exec:
-      command:
-        - imgproxy
-        - health
-    initialDelaySeconds: 3
-  environment:
-    IMGPROXY_ENABLE_WEBP_DETECTION: "true"
-  persistence:
-    enabled: false
+# # imgproxy
+# imgproxy:
+#   # Enable imgproxy provisioning
+#   enabled: false
+#   image:
+#     repository: darthsim/imgproxy
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   livenessProbe:
+#     exec:
+#       command:
+#         - imgproxy
+#         - health
+#     initialDelaySeconds: 3
+#   environment:
+#     IMGPROXY_ENABLE_WEBP_DETECTION: "true"
+#   persistence:
+#     enabled: false
 
-# Kong
-kong:
-  # Enable kong provisioning
-  enabled: false
-  image:
-    repository: kong
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  environment:
-    KONG_DECLARATIVE_CONFIG: /usr/local/kong/kong.yml
-    KONG_LOG_LEVEL: info
-  ingress:
-    enabled: true
-    className: external
-    annotations:
-      external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
-      external-dns.home.arpa/enabled: "true"
-    hosts:
-      - host: &host 'kong.drewpayment.com'
-        paths:
-          - path: /
-            pathType: Prefix
-    tls:
-      - hosts:
-          - *host
+# # Kong
+# kong:
+#   # Enable kong provisioning
+#   enabled: false
+#   image:
+#     repository: kong
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   environment:
+#     KONG_DECLARATIVE_CONFIG: /usr/local/kong/kong.yml
+#     KONG_LOG_LEVEL: info
+#   ingress:
+#     enabled: true
+#     className: external
+#     annotations:
+#       external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
+#       external-dns.home.arpa/enabled: "true"
+#     hosts:
+#       - host: &host 'kong.drewpayment.com'
+#         paths:
+#           - path: /
+#             pathType: Prefix
+#     tls:
+#       - hosts:
+#           - *host
 
-# Analytics
-analytics:
-  # Enable analytics provisioning
-  enabled: false
-  image:
-    repository: supabase/logflare
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  livenessProbe:
-    httpGet:
-      path: /health
-      port: 4000
-    initialDelaySeconds: 3
+# # Analytics
+# analytics:
+#   # Enable analytics provisioning
+#   enabled: false
+#   image:
+#     repository: supabase/logflare
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   livenessProbe:
+#     httpGet:
+#       path: /health
+#       port: 4000
+#     initialDelaySeconds: 3
 
-# Vector
-vector:
-  # Enable vector provisioning
-  enabled: true
-  image:
-    repository: timberio/vector
-    pullPolicy: IfNotPresent
-    tag: "latest"
-  livenessProbe:
-    httpGet:
-      path: /health
-      port: 9001
-    initialDelaySeconds: 3
-  volumeMounts:
-    - name: pod-logs
-      mountPath: /var/log/pods
-  volumes:
-    - name: pod-logs
-      hostPath:
-        path: /var/log/pods
+# # Vector
+# vector:
+#   # Enable vector provisioning
+#   enabled: true
+#   image:
+#     repository: timberio/vector
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
+#   livenessProbe:
+#     httpGet:
+#       path: /health
+#       port: 9001
+#     initialDelaySeconds: 3
+#   volumeMounts:
+#     - name: pod-logs
+#       mountPath: /var/log/pods
+#   volumes:
+#     - name: pod-logs
+#       hostPath:
+#         path: /var/log/pods
 
-# Functions
-functions:
-  # Enable functions provisioning
-  enabled: false
-  image:
-    repository: supabase/edge-runtime
-    pullPolicy: IfNotPresent
-    tag: "latest"
+# # Functions
+# functions:
+#   # Enable functions provisioning
+#   enabled: false
+#   image:
+#     repository: supabase/edge-runtime
+#     pullPolicy: IfNotPresent
+#     tag: "latest"
