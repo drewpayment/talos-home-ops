@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: https://github.com/drewpayment/talos-home-ops.git
     path: argocd/apps/supabase/charts
-    chart: supabase
+    # chart: supabase
     targetRevision: HEAD # Or you can specify a branch or tag
   destination:
     server: https://kubernetes.default.svc
