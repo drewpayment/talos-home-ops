@@ -13,45 +13,45 @@
 # # |-- 12. Functions
 # # |-- 13. Minio
 
-# secret:
-#   # jwt will be used to reference secret in multiple services:
-#   # Anon & Service key: Studio, Storage, Kong
-#   # JWT Secret: Analytics, Auth, Rest, Realtime, Storage
-#   jwt:
-#     anonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzE0MzYzMjAwLAogICJleHAiOiAxODcyMTI5NjAwCn0.8eR6lJL3QSUKJMg8UlLey_AgQJHusq_OBAQytxFEN5w
-#     serviceKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogInNlcnZpY2Vfcm9sZSIsCiAgImlzcyI6ICJzdXBhYmFzZSIsCiAgImlhdCI6IDE3MTQzNjMyMDAsCiAgImV4cCI6IDE4NzIxMjk2MDAKfQ.m9ks4RnQYB-OygQlRYcPneFjABpZBgWwJN1vipQDexo
-#     # specify existing secret, which takes precedence over variables above
-#     secretRefKey:
-#       secret: SUPABASE_JWT_SECRET
-#   # database credentials
-#   # these fields must be provided even if using external database
-#   dashboard:
-#     secretRefKey:
-#       username: SUPABASE_DASHBOARD_USERNAME
-#       password: SUPABASE_DASHBOARD_PASSWORD
-#   db:
-#     secretRefKey:
-#       username: SUPABASE_DB_USERNAME
-#       password: SUPABASE_DB_PASSWORD
-#       database: SUPABASE_DB_NAME
-#   analytics:
-#     secretRefKey:
-#       apiKey: SUPABASE_LOGFLARE_API_KEY
-#   # smtp will be used to reference secret including smtp credentials
-#   smtp:
-#     secretRefKey:
-#       username: SUPABASE_SMTP_USERNAME
-#       password: SUPABASE_SMTP_PASSWORD
-#   # S3 credentials for storage object bucket
-#   # s3:
-#   #   # keyId: ""
-#   #   # accessKey: ""
-#   #   # specify existing secret, which takes precedence over variables above
-#   #   # secretRef: ""
-#   #   # override secret keys for existing secret refs
-#   #   secretRefKey:
-#   #     keyId: keyId
-#   #     accessKey: accessKey
+secret:
+  # jwt will be used to reference secret in multiple services:
+  # Anon & Service key: Studio, Storage, Kong
+  # JWT Secret: Analytics, Auth, Rest, Realtime, Storage
+  jwt:
+    anonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzE0MzYzMjAwLAogICJleHAiOiAxODcyMTI5NjAwCn0.8eR6lJL3QSUKJMg8UlLey_AgQJHusq_OBAQytxFEN5w
+    serviceKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogInNlcnZpY2Vfcm9sZSIsCiAgImlzcyI6ICJzdXBhYmFzZSIsCiAgImlhdCI6IDE3MTQzNjMyMDAsCiAgImV4cCI6IDE4NzIxMjk2MDAKfQ.m9ks4RnQYB-OygQlRYcPneFjABpZBgWwJN1vipQDexo
+    # specify existing secret, which takes precedence over variables above
+    secretRefKey:
+      secret: SUPABASE_JWT_SECRET
+  # database credentials
+  # these fields must be provided even if using external database
+  dashboard:
+    secretRefKey:
+      username: SUPABASE_DASHBOARD_USERNAME
+      password: SUPABASE_DASHBOARD_PASSWORD
+  db:
+    secretRefKey:
+      username: SUPABASE_DB_USERNAME
+      password: SUPABASE_DB_PASSWORD
+      database: SUPABASE_DB_NAME
+  analytics:
+    secretRefKey:
+      apiKey: SUPABASE_LOGFLARE_API_KEY
+  # smtp will be used to reference secret including smtp credentials
+  smtp:
+    secretRefKey:
+      username: SUPABASE_SMTP_USERNAME
+      password: SUPABASE_SMTP_PASSWORD
+  # S3 credentials for storage object bucket
+  # s3:
+  #   # keyId: ""
+  #   # accessKey: ""
+  #   # specify existing secret, which takes precedence over variables above
+  #   # secretRef: ""
+  #   # override secret keys for existing secret refs
+  #   secretRefKey:
+  #     keyId: keyId
+  #     accessKey: accessKey
 
 # # Optional: Postgres Database
 # # A standalone Postgres database configured to work with Supabase services.

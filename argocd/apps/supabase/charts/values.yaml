@@ -1,0 +1,116 @@
+
+
+secret:
+  # jwt will be used to reference secret in multiple services:
+  # Anon & Service key: Studio, Storage, Kong
+  # JWT Secret: Analytics, Auth, Rest, Realtime, Storage
+  jwt:
+    anonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNzE0MzYzMjAwLAogICJleHAiOiAxODcyMTI5NjAwCn0.8eR6lJL3QSUKJMg8UlLey_AgQJHusq_OBAQytxFEN5w
+    serviceKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogInNlcnZpY2Vfcm9sZSIsCiAgImlzcyI6ICJzdXBhYmFzZSIsCiAgImlhdCI6IDE3MTQzNjMyMDAsCiAgImV4cCI6IDE4NzIxMjk2MDAKfQ.m9ks4RnQYB-OygQlRYcPneFjABpZBgWwJN1vipQDexo
+    # specify existing secret, which takes precedence over variables above
+    secretRefKey:
+      secret: SUPABASE_JWT_SECRET
+  # database credentials
+  # these fields must be provided even if using external database
+  dashboard:
+    secretRefKey:
+      username: SUPABASE_DASHBOARD_USERNAME
+      password: SUPABASE_DASHBOARD_PASSWORD
+  db:
+    secretRefKey:
+      username: SUPABASE_DB_USERNAME
+      password: SUPABASE_DB_PASSWORD
+      database: SUPABASE_DB_NAME
+  analytics:
+    secretRefKey:
+      apiKey: SUPABASE_LOGFLARE_API_KEY
+  # smtp will be used to reference secret including smtp credentials
+  smtp:
+    secretRefKey:
+      username: SUPABASE_SMTP_USERNAME
+      password: SUPABASE_SMTP_PASSWORD
+
+# Studio Application
+studio:
+  # Enable studio provisioning
+  image:
+    repository: supabase/studio
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  environment:
+    STUDIO_DEFAULT_ORGANIZATION: "Verostack"
+    STUDIO_DEFAULT_PROJECT: "Stacks"
+    STUDIO_PORT: "3000"
+    SUPABASE_PUBLIC_URL: https://supabase.drewpayment.com
+    NEXT_PUBLIC_ENABLE_LOGS: "true"
+    # Set value to bigquery to use Big Query backend for analytics
+    NEXT_ANALYTICS_BACKEND_PROVIDER: postgres  # postgres, bigquery
+
+# Auth Service
+auth:
+  # Enable auth provisioning
+  image:
+    repository: supabase/gotrue
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  replicaCount: 1
+  environment:
+    # Override the database hostname if using external database
+    DB_HOST: 192.168.86.142
+    DB_USER:
+      secretRef: SUPABASE_DB_USERNAME
+    DB_PORT: 5432
+    DB_DRIVER: postgres
+    DB_SSL: disable  # disable, allow, prefer, require, verify-ca, verify-full
+    API_EXTERNAL_URL: https://supabase-auth-api.drewpayment.com
+    GOTRUE_SITE_URL: https://supabase-auth.drewpayment.com
+    GOTRUE_URI_ALLOW_LIST: "*"
+    GOTRUE_DISABLE_SIGNUP: "false"
+    GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
+    GOTRUE_MAILER_AUTOCONFIRM: "true"
+    GOTRUE_SMTP_ADMIN_EMAIL: "drew.payment@gmail.com"
+    GOTRUE_SMTP_HOST: "smtp.gmail.com"
+    GOTRUE_SMTP_PORT: "587"
+    GOTRUE_SMTP_SENDER_NAME: "Do Not Reply"
+    GOTRUE_EXTERNAL_PHONE_ENABLED: "false"
+
+# Rest Service
+rest:
+  # Enable postgrest provisioning
+  image:
+    repository: postgrest/postgrest
+    pullPolicy: IfNotPresent
+    tag: "latest"
+
+# Storage Service
+storage:
+  # Enable storage provisioning
+  image:
+    repository: supabase/storage-api
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: 5000
+    initialDelaySeconds: 3
+  persistence:
+    enabled: false
+
+# imgproxy
+imgproxy:
+  # Enable imgproxy provisioning
+  image:
+    repository: darthsim/imgproxy
+    pullPolicy: IfNotPresent
+    tag: "latest"
+  livenessProbe:
+    exec:
+      command:
+        - imgproxy
+        - health
+    initialDelaySeconds: 3
+  environment:
+    IMGPROXY_ENABLE_WEBP_DETECTION: "true"
+  persistence:
+    enabled: false
