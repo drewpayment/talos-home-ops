@@ -13,9 +13,13 @@ spec:
       selfHeal: true # Attempt to fix out-of-sync resources
   source:
     repoURL: https://github.com/drewpayment/talos-home-ops.git
-    path: argocd/apps/supabase/charts
-    # chart: supabase
-    # targetRevision: 0.1.1 # Or you can specify a branch or tag
+    path: argocd/apps/supabase
+    targetRevision: HEAD # Or you can specify a branch or tag
+    helm:
+      releaseName: supabase
+      valueFiles:
+      - supabase/values.yaml
+    chart: oci://registry-1.docker.io/bitnamicharts/supabase
   destination:
     server: https://kubernetes.default.svc
     namespace: supabase
