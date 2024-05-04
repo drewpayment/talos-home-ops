@@ -12,14 +12,14 @@ spec:
       prune: true  # Delete resources that are no longer in Git
       selfHeal: true # Attempt to fix out-of-sync resources
   source:
-    repoURL: https://github.com/drewpayment/talos-home-ops.git
+    repoURL: oci://registry-1.docker.io/bitnamicharts
+    chart: supabase
     path: argocd/apps/supabase
     targetRevision: 0.24.3 # Or you can specify a branch or tag
     helm:
       releaseName: supabase
       valueFiles:
       - supabase/values.yaml
-    chart: oci://registry-1.docker.io/bitnamicharts/supabase
   destination:
     server: https://kubernetes.default.svc
     namespace: supabase
