@@ -5,20 +5,26 @@ metadata:
   namespace: argocd
 spec:
   project: default
+  sources:
+  - repoURL: 'https://github.com/drewpayment/talos-home-ops.git'
+    path: 'argocd/apps/supabase'
+    targetRevision: HEAD
+    ref: values
+
+  - repoURL: 'registry-1.docker.io/bitnamicharts'
+    path: 'supabase'
+    targetRevision: 4.0.5
+    chart: supabase
+    helm:
+      valueFiles:
+      - $values/argocd/apps/supabase/values.yaml
+
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
     automated:
       prune: true  # Delete resources that are no longer in Git
       selfHeal: true # Attempt to fix out-of-sync resources
-  source:
-    chart: supabase
-    repoURL: https://registry-1.docker.io/bitnamicharts/supabase
-    targetRevision: 0.1.1 # Or you can specify a branch or tag
-    helm:
-      releaseName: supabase
-      valueFiles:
-      - supabase/values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: supabase
