@@ -14,7 +14,7 @@ spec:
   source:
     repoURL: oci://registry-1.docker.io/bitnamicharts
     chart: supabase
-    targetRevision: 0.24.3 # Or you can specify a branch or tag
+    targetRevision: 0.1.1 # Or you can specify a branch or tag
     helm:
       releaseName: supabase
       valueFiles:
