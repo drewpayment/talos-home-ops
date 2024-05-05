@@ -30,6 +30,9 @@ secret:
       username: SUPABASE_SMTP_USERNAME
       password: SUPABASE_SMTP_PASSWORD
 
+db:
+  enabled: false
+
 # Studio Application
 studio:
   # Enable studio provisioning
