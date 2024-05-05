@@ -12,8 +12,8 @@ spec:
       prune: true  # Delete resources that are no longer in Git
       selfHeal: true # Attempt to fix out-of-sync resources
   source:
-    repoURL: oci://registry-1.docker.io/bitnamicharts/supabase
     chart: supabase
+    repoURL: https://registry-1.docker.io/bitnamicharts/supabase
     targetRevision: 0.1.1 # Or you can specify a branch or tag
     helm:
       releaseName: supabase
