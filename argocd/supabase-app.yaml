@@ -12,6 +12,7 @@ spec:
       prune: true  # Delete resources that are no longer in Git
       selfHeal: true # Attempt to fix out-of-sync resources
   source:
+    repoURL: oci://registry-1.docker.io/bitnamicharts
     chart: supabase
     targetRevision: 0.24.3 # Or you can specify a branch or tag
     helm:
