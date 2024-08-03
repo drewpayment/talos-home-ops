@@ -65,12 +65,12 @@ spec:
         className: external
         annotations:
           forecastle.stakater.com/expose: "true"
-          forecastle.stakater.com/icon: movie-open-check
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          forecastle.stakater.com/icon: github
+          external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/icon: file-code
         hosts:
-          - host: &host code.${SECRET_DOMAIN}
+          - host: &host "code.drewpayment.com"
             paths:
               - path: /
                 service:
