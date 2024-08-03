@@ -64,7 +64,9 @@ spec:
       app:
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: movie-open-check
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           external-dns.home.arpa/enabled: "true"
           hajimari.io/icon: file-code
         hosts:
