@@ -2,6 +2,6 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: local-path
-provisioner: kubernetes.io/no-provisioner
+provisioner: nfs.csi.k8s.io
 volumeBindingMode: Immediate
 reclaimPolicy: Delete
