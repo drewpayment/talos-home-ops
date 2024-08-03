@@ -31,7 +31,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: nfs-csi
+  storageClassName: openebs-hostpath
   resources:
     requests:
       storage: 60Gi
