@@ -30,7 +30,7 @@ metadata:
   name: code-server-data
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: local-path
   resources:
     requests:
