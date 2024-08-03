@@ -82,7 +82,6 @@ spec:
         existingClaim: code-server-data
         globalMounts:
           - path: /config
-            readonly: false
     # persistence:
     #   config:
     #     enabled: true
