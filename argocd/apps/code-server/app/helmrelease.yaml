@@ -44,11 +44,10 @@ spec:
               repository: ghcr.io/linuxserver/code-server
               tag: 4.91.1
             env:
-              TZ: ${TIMEZONE}
+              TZ: America/New_York
               PUID: 911
               PGID: 911
-              PROXY_DOMAIN: code.${SECRET_DOMAIN}
-              PASSWORD: ${CODESERVER_PASSWORD}
+              PROXY_DOMAIN: code.drewpayment.com
               DOCKER_MODS: linuxserver/mods:universal-git|linuxserver/mods:code-server-shellcheck|linuxserver/mods:code-server-terraform
               DEFAULT_WORKSPACE: /config/workspace
               # DOCKER_MODS: "linuxserver/mods:code-server-docker|linuxserver/mods:code-server-python3|linuxserver/mods:code-server-shellcheck|linuxserver/mods:code-server-terraform|linuxserver/mods:universal-git|linuxserver/mods:universal-tshoot|linuxserver/mods:universal-package-install"
