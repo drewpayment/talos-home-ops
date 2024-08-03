@@ -1,16 +1,29 @@
----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: code-server-storage
-provisioner: nfs.csi.k8s.io
-parameters:
-  server: 192.168.86.44
-  share: /mnt/tank/appdata
-reclaimPolicy: Delete
-volumeBindingMode: Immediate
+# ---
+# apiVersion: storage.k8s.io/v1
+# kind: StorageClass
+# metadata:
+#   name: code-server-storage
+# provisioner: nfs.csi.k8s.io
+# parameters:
+#   server: 192.168.86.44
+#   share: /mnt/tank/appdata
+# reclaimPolicy: Delete
+# volumeBindingMode: Immediate
 
----
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: code-server-data
+#   namespace: code-server
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: code-server-storage
+#   resources:
+#     requests:
+#       storage: 60G
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -19,7 +32,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: code-server-storage
+  storageClassName: local-path
   resources:
     requests:
-      storage: 60G
+      storage: 60Gi
