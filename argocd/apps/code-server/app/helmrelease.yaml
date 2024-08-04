@@ -80,7 +80,6 @@ spec:
               - *host
     persistence:
       config:
-        type: hostPath
         storageClass: local-device
         accessMode: ReadWriteOnce
         size: 60Gi
