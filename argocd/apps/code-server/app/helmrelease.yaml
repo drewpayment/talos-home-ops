@@ -82,7 +82,6 @@ spec:
       config:
         type: persistentVolumeClaim
         existingClaim: code-server-pvc
-        accessMode: ReadWriteOnce
         globalMounts:
           - path: /config
             readOnly: false
