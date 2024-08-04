@@ -24,14 +24,14 @@
 #     requests:
 #       storage: 60G
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: code-server-data
-spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-path
-  resources:
-    requests:
-      storage: 60Gi
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: code-server-data
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: local-path
+#   resources:
+#     requests:
+#       storage: 60Gi
