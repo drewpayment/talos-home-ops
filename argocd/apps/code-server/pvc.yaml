@@ -31,7 +31,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-path
+  storageClassName: local-device
   resources:
     requests:
       storage: 60Gi
