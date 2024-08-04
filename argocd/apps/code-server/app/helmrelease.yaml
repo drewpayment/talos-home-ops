@@ -80,9 +80,11 @@ spec:
               - *host
     persistence:
       config:
-        existingClaim: code-server-data
-        globalMounts:
-          - path: /config
+        storageClass: longhorn
+        storage: 60Gi
+        # existingClaim: code-server-data
+        # globalMounts:
+        #   - path: /config
     # persistence:
     #   config:
     #     enabled: true
