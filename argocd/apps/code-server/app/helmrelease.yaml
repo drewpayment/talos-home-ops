@@ -80,9 +80,13 @@ spec:
               - *host
     persistence:
       config:
-        existingClaim: code-server-data
+        type: persistentVolumeClaim
+        existingClaim: code-server-pvc
+        accessMode: ReadWriteOnce
         globalMounts:
           - path: /config
+            readOnly: false
+
     # persistence:
     #   config:
     #     enabled: true
