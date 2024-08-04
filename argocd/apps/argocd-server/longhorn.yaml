@@ -4,28 +4,49 @@ apiVersion: v1
 metadata:
   name: longhorn-system
 ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: longhorn-system
+#   namespace: argocd
+# spec:
+#   destination:
+#     namespace: longhorn-system
+#     server: https://kubernetes.default.svc
+#   project: default
+#   source:
+#     chart: longhorn
+#     repoURL: https://charts.longhorn.io
+#     targetRevision: 1.6.2
+#     helm:
+#       valuesObject:
+#         persistence:
+#           defaultClass: true
+#           defaultClassReplicaCount: 3
+#           reclaimPolicy: Retain
+#         preUpgradeChecker:
+#           jobEnabled: false
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: longhorn-system
+  name: longhorn
   namespace: argocd
 spec:
-  destination:
-    namespace: longhorn-system
-    server: https://kubernetes.default.svc
   project: default
-  source:
-    chart: longhorn
-    repoURL: https://charts.longhorn.io
-    targetRevision: 1.6.2
-    helm:
-      valuesObject:
-        persistence:
-          defaultClass: true
-          defaultClassReplicaCount: 3
-          reclaimPolicy: Retain
-        preUpgradeChecker:
-          jobEnabled: false
+  sources:
+    - chart: longhorn
+      repoURL: https://charts.longhorn.io/
+      targetRevision: v1.6.2 # Replace with the Longhorn version you'd like to install or upgrade to
+      helm:
+        values: |
+          persistence:
+            defaultClass: true
+            reclaimPolicy: Retain
+          preUpgradeChecker:
+            jobEnabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: longhorn-system
   syncPolicy:
     automated:
       allowEmpty: true
