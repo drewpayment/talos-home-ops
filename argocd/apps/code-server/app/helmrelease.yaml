@@ -80,13 +80,9 @@ spec:
               - *host
     persistence:
       config:
-        storageClass: longhorn
-        type: persistentVolumeClaim
-        accessMode: ReadWriteOnce
-        size: 60Gi
-        # existingClaim: code-server-data
-        # globalMounts:
-        #   - path: /config
+        existingClaim: code-server-data
+        globalMounts:
+          - path: /config
     # persistence:
     #   config:
     #     enabled: true
