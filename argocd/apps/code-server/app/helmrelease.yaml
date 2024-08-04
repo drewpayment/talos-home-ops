@@ -81,7 +81,10 @@ spec:
     persistence:
       config:
         storageClass: longhorn
-        storage: 60Gi
+        type: pvc
+        accessMode: ReadWriteOnce
+        size: 60Gi
+        mountPath: /config
         # existingClaim: code-server-data
         # globalMounts:
         #   - path: /config
