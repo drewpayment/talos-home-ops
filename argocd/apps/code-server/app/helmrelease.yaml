@@ -80,8 +80,10 @@ spec:
               - *host
     persistence:
       config:
-        type: persistentVolumeClaim
-        existingClaim: code-server-pvc
+        type: hostPath
+        storageClass: local-device
+        accessMode: ReadWriteOnce
+        size: 60Gi
         globalMounts:
           - path: /config
             readOnly: false
