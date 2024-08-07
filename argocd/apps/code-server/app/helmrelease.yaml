@@ -62,7 +62,7 @@ spec:
       ssh:
         enabled: true
         primary: false
-        controller: main
+        controller: code-server
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
