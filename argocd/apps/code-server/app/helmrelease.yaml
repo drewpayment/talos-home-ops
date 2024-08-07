@@ -59,6 +59,25 @@ spec:
         ports:
           http:
             port: 8443
+      ssh:
+        enabled: true
+        primary: false
+        controller: main
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          coredns.io/hostname: "vs-ssh.${APP_IP_K8S_GATEWAY}"
+          io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
+        labels:
+          io.cilium/l2: "true"
+        ports:
+          http:
+            enabled: true
+            port: 22
+            targetPort: 2222
+            protocol: TCP
+          ssh2:
+            port: 22222
     ingress:
       app:
         className: external
@@ -87,6 +106,37 @@ spec:
             path: "/home/coder"
           - subPath: "ssh"
             path: "/home/coder/.ssh" # override secret mount perms
+      misc: # not backed up
+        enabled: true
+        existingClaim: "code-server-misc"
+        globalMounts:
+          - subPath: "ignore"
+            path: "/home/coder/ignore"
+          - subPath: "brew"
+            path: "/home/linuxbrew"
+          - subPath: "nix"
+            path: "/nix/store"
+          - subPath: "cache"
+            path: "/home/coder/.cache"
+          - subPath: "mise"
+            path: "/home/coder/.local/share/mise"
+          - subPath: "go"
+            path: "/home/coder/go"
+      talos-admin:
+        enabled: true
+        type: secret
+        name: "talos"
+        defaultMode: 0400
+        advancedMounts:
+          main:
+            main:
+              - path: "/var/run/secrets/talos.dev"
+                readOnly: true
+              - path: "/home/coder/.talos"
+                readOnly: true
+    serviceAccount:
+      name: "code-server"
+      create: true
 
     # persistence:
     #   config:
