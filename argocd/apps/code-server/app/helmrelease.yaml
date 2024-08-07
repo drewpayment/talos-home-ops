@@ -108,7 +108,7 @@ spec:
             path: "/home/coder/.ssh" # override secret mount perms
       misc: # not backed up
         enabled: true
-        existingClaim: "code-server-misc"
+        existingClaim: code-server-pvc
         globalMounts:
           - subPath: "ignore"
             path: "/home/coder/ignore"
@@ -122,19 +122,6 @@ spec:
             path: "/home/coder/.local/share/mise"
           - subPath: "go"
             path: "/home/coder/go"
-      talos-admin:
-        enabled: true
-        controller: code-server
-        type: secret
-        name: "talos"
-        defaultMode: 0400
-        advancedMounts:
-          main:
-            main:
-              - path: "/var/run/secrets/talos.dev"
-                readOnly: true
-              - path: "/home/coder/.talos"
-                readOnly: true
     serviceAccount:
       name: "code-server"
       create: true
