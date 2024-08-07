@@ -66,7 +66,8 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
-          coredns.io/hostname: "vs-ssh.${APP_IP_K8S_GATEWAY}"
+          external-dns.alpha.kubernetes.io/target: "vs-ssh.${APP_IP_K8S_GATEWAY}"
+          external-dns.home.arpa/enabled: "true"
           io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
         labels:
           io.cilium/l2: "true"
