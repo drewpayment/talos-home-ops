@@ -80,12 +80,13 @@ spec:
               - *host
     persistence:
       config:
-        storageClass: local-device
-        accessMode: ReadWriteOnce
-        size: 60Gi
+        enabled: true
+        existingClaim: code-server-pvc
         globalMounts:
-          - path: /config
-            readOnly: false
+          - subPath: "data"
+            path: "/home/coder"
+          - subPath: "ssh"
+            path: "/home/coder/.ssh" # override secret mount perms
 
     # persistence:
     #   config:

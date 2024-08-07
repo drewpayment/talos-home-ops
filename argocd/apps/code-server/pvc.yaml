@@ -29,9 +29,8 @@ kind: PersistentVolumeClaim
 metadata:
   name: code-server-pvc
 spec:
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-device
+  storageClassName: openebs-hostpath
+  accessModes: ["ReadWriteOnce"]
   resources:
     requests:
-      storage: 60Gi
+      storage: 10Gi
