@@ -124,6 +124,7 @@ spec:
             path: "/home/coder/go"
       talos-admin:
         enabled: true
+        controller: code-server
         type: secret
         name: "talos"
         defaultMode: 0400
