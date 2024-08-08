@@ -59,26 +59,26 @@ spec:
         ports:
           http:
             port: 8443
-      ssh:
-        enabled: true
-        primary: false
-        controller: code-server
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "vs-ssh.${APP_IP_K8S_GATEWAY}"
-          external-dns.home.arpa/enabled: "true"
-          io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
-        labels:
-          io.cilium/l2: "true"
-        ports:
-          http:
-            enabled: true
-            port: 22
-            targetPort: 2222
-            protocol: TCP
-          ssh2:
-            port: 22222
+      # ssh:
+      #   enabled: true
+      #   primary: false
+      #   controller: code-server
+      #   type: LoadBalancer
+      #   externalTrafficPolicy: Cluster
+      #   annotations:
+      #     external-dns.alpha.kubernetes.io/target: "vs-ssh.${APP_IP_K8S_GATEWAY}"
+      #     external-dns.home.arpa/enabled: "true"
+      #     io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
+      #   labels:
+      #     io.cilium/l2: "true"
+      #   ports:
+      #     http:
+      #       enabled: true
+      #       port: 22
+      #       targetPort: 2222
+      #       protocol: TCP
+      #     ssh2:
+      #       port: 22222
     ingress:
       app:
         className: external
@@ -123,9 +123,9 @@ spec:
             path: "/home/coder/.local/share/mise"
           - subPath: "go"
             path: "/home/coder/go"
-    serviceAccount:
-      name: "code-server"
-      create: true
+    # serviceAccount:
+    #   name: "code-server"
+    #   create: true
 
     # persistence:
     #   config:
