@@ -3,16 +3,16 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: &app code-server
-  namespace: apps
+  namespace: code-server
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: app-template
-      version: "2.6.0"
+      version: 3.0.4
       sourceRef:
-        name: bjw-s
         kind: HelmRepository
+        name: bjw-s
         namespace: flux-system
   maxHistory: 2
   install:
@@ -25,262 +25,91 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    defaultPodOptions:
+      topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: *app
     controllers:
       code-server:
-        type: deployment
-        replicas: 1
-        annotations: &anno
+        type: statefulset
+        annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
-              repository: ghcr.io/coder/code-server
-              tag: "4.91.1"
-            command: ["dumb-init", "/bin/bash", "-c"]
-            args: ["/home/linuxbrew/.linuxbrew/sbin/sshd -p 2222 || true; /usr/bin/code-server --auth none --disable-telemetry --user-data-dir /home/coder/.vscode --extensions-dir /home/coder/.vscode --bind-addr 0.0.0.0:8080 --port 8080 /home/coder"]
+              repository: ghcr.io/linuxserver/code-server
+              tag: 4.91.1
             env:
-              TZ: "${CONFIG_TZ}"
-              SSH_AUTH_SOCK: ""
-              SOPS_AGE_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: AGE_KEY
-            securityContext: &sc
-              readOnlyRootFilesystem: true
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop: ["ALL"]
-            resources:
-              requests:
-                cpu: "10m"
-              limits:
-                cpu: "1000m" # I previously had a code-server that would eat cores
-                memory: "8Gi"
+              TZ: America/New_York
+              PUID: 911
+              PGID: 911
+              PROXY_DOMAIN: code.drewpayment.com
+              DOCKER_MODS: linuxserver/mods:universal-git|linuxserver/mods:code-server-shellcheck|linuxserver/mods:code-server-terraform
+              DEFAULT_WORKSPACE: /config/workspace
+              # DOCKER_MODS: "linuxserver/mods:code-server-docker|linuxserver/mods:code-server-python3|linuxserver/mods:code-server-shellcheck|linuxserver/mods:code-server-terraform|linuxserver/mods:universal-git|linuxserver/mods:universal-tshoot|linuxserver/mods:universal-package-install"
+              INSTALL_PACKAGES: "rsync|git|nginx"
+              # INSTALL_PIP_PACKAGES: "apprise"
     service:
       app:
         controller: code-server
         ports:
           http:
-            port: 8080
-          hugo:
-            port: 1313
-          test:
-            port: 8081
-      ssh:
-        enabled: true
-        primary: false
-        controller: main
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
-        annotations:
-          coredns.io/hostname: "vs-ssh.${DNS_SHORT}"
-          io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
-          tailscale.com/expose: "true"
-          tailscale.com/hostname: "vs-ssh"
-        labels:
-          io.cilium/l2: "true"
-        ports:
-          http:
-            enabled: true
-            port: 22
-            targetPort: 2222
-            protocol: TCP
-          ssh2:
-            port: 22222
-    persistence:
-      config:
-        enabled: true
-        existingClaim: "code-server-data"
-        globalMounts:
-          - subPath: "data"
-            path: "/home/coder"
-          - subPath: "ssh"
-            path: "/home/coder/.ssh" # override secret mount perms
-          - subPath: "nix-var"
-            path: "/nix/var"
-      misc: # not backed up
-        enabled: true
-        existingClaim: "code-server-misc"
-        globalMounts:
-          - subPath: "ignore"
-            path: "/home/coder/ignore"
-          - subPath: "brew"
-            path: "/home/linuxbrew"
-          - subPath: "nix"
-            path: "/nix/store"
-          - subPath: "cache"
-            path: "/home/coder/.cache"
-          - subPath: "mise"
-            path: "/home/coder/.local/share/mise"
-          - subPath: "go"
-            path: "/home/coder/go"
-      secrets:
-        enabled: true
-        type: secret
-        name: "code-server-secrets"
-        defaultMode: 0600
-        advancedMounts:
-          main:
-            main:
-              - subPath: "ssh-privkey"
-                path: "/home/coder/.ssh/id_rsa"
-                readOnly: true
-              - subPath: "ssh-pubkey"
-                path: "/home/coder/.ssh/id_rsa.pub"
-                readOnly: true
-      talos-admin:
-        enabled: true
-        type: secret
-        name: "talos"
-        defaultMode: 0400
-        advancedMounts:
-          main:
-            main:
-              - path: "/var/run/secrets/talos.dev"
-                readOnly: true
-              - path: "/home/coder/.talos"
-                readOnly: true
-      tmp:
-        enabled: true
-        type: emptyDir
-        medium: Memory
-        globalMounts:
-          - subPath: "tmp"
-            path: "/tmp"
-            readOnly: false
-      main:
-        type: deployment
-        replicas: 1
-        annotations: &anno
-          reloader.stakater.com/auto: "false"
-          secret.reloader.stakater.com/reload: "code-server-secrets"
-        pod:
-          labels:
-            tailscale.com/expose: "true"
-            ingress.home.arpa/jjgadgets: "allow"
-            ingress.home.arpa/nginx-internal: "allow"
-            egress.home.arpa/apiserver: "allow"
-            egress.home.arpa/world: "allow"
-            egress.home.arpa/cluster: "allow"
-        containers:
-          main:
-            image:
-              repository: "ghcr.io/coder/code-server"
-              tag: "4.89.1@sha256:01dfb4784e1deefe15c8d09930520bb7074e2feddbc5128e82a3e3ee57f6bcff"
-            command: ["dumb-init", "/bin/bash", "-c"]
-            args: ["/home/linuxbrew/.linuxbrew/sbin/sshd -p 2222 || true; /usr/bin/code-server --auth none --disable-telemetry --user-data-dir /home/coder/.vscode --extensions-dir /home/coder/.vscode --bind-addr 0.0.0.0:8080 --port 8080 /home/coder"]
-            env:
-              TZ: "${CONFIG_TZ}"
-              SSH_AUTH_SOCK: ""
-              SOPS_AGE_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: AGE_KEY
-            securityContext: &sc
-              readOnlyRootFilesystem: true
-              allowPrivilegeEscalation: false
-              capabilities:
-                drop: ["ALL"]
-            resources:
-              requests:
-                cpu: "10m"
-              limits:
-                cpu: "1000m" # I previously had a code-server that would eat cores
-                memory: "4Gi"
-    service:
-      main:
-        ports:
-          http:
-            port: 8080
-          hugo:
-            port: 1313
-          test:
-            port: 8081
-      ssh:
-        enabled: true
-        primary: false
-        controller: main
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
-        annotations:
-          coredns.io/hostname: "vs-ssh.${DNS_SHORT}"
-          io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
-          tailscale.com/expose: "true"
-          tailscale.com/hostname: "vs-ssh"
-        labels:
-          io.cilium/l2: "true"
-        ports:
-          http:
-            enabled: true
-            port: 22
-            targetPort: 2222
-            protocol: TCP
-          ssh2:
-            port: 22222
+            port: 8443
+      # ssh:
+      #   enabled: true
+      #   primary: false
+      #   controller: code-server
+      #   type: LoadBalancer
+      #   externalTrafficPolicy: Cluster
+      #   annotations:
+      #     external-dns.alpha.kubernetes.io/target: "vs-ssh.${APP_IP_K8S_GATEWAY}"
+      #     external-dns.home.arpa/enabled: "true"
+      #     io.cilium/lb-ipam-ips: "${APP_IP_CODE_SERVER_SSH}"
+      #   labels:
+      #     io.cilium/l2: "true"
+      #   ports:
+      #     http:
+      #       enabled: true
+      #       port: 22
+      #       targetPort: 2222
+      #       protocol: TCP
+      #     ssh2:
+      #       port: 22222
     ingress:
-      main:
-        enabled: true
-        primary: true
-        className: "nginx-internal"
+      app:
+        className: external
         annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: |
-            ${IP_JJ_V4}
+          forecastle.stakater.com/expose: "true"
+          forecastle.stakater.com/icon: github
+          external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/icon: file-code
         hosts:
-          - host: &host "vs.${DNS_SHORT}"
+          - host: &host "code.drewpayment.com"
             paths:
-              - &path
-                path: /
-                pathType: Prefix
-                service: &http
-                  name: main
-                  port: http
-          - host: &host "hugo.${DNS_SHORT}"
-            paths:
-              - <<: *path
-                service: &hugo
-                  name: main
-                  port: hugo
-          - host: &host "vs-test.${DNS_SHORT}"
-            paths:
-              - <<: *path
-                service: &test
-                  name: main
-                  port: test
+              - path: /
+                service:
+                  identifier: app
+                  port: 8443
         tls:
-          - hosts: [*host]
-      tailscale:
-        enabled: true
-        primary: false
-        className: "tailscale"
-        annotations:
-          tailscale.com/tags: "tag:jjgadgets-apps"
-        hosts:
-          - host: &host "vs.${DNS_TS}"
-            paths:
-              - <<: *path
-                service: *http
-              - <<: *path
-                path: /hugo
-                service: *http
-              - <<: *path
-                path: /test
-                service: *http
-        tls:
-          - hosts: [*host]
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
-        existingClaim: "code-server-data"
+        existingClaim: code-server-pvc
         globalMounts:
           - subPath: "data"
             path: "/home/coder"
           - subPath: "ssh"
             path: "/home/coder/.ssh" # override secret mount perms
-          - subPath: "nix-var"
-            path: "/nix/var"
       misc: # not backed up
         enabled: true
-        existingClaim: "code-server-misc"
+        existingClaim: code-server-pvc
         globalMounts:
           - subPath: "ignore"
             path: "/home/coder/ignore"
@@ -294,65 +123,20 @@ spec:
             path: "/home/coder/.local/share/mise"
           - subPath: "go"
             path: "/home/coder/go"
-      secrets:
-        enabled: true
-        type: secret
-        name: "code-server-secrets"
-        defaultMode: 0600
-        advancedMounts:
-          main:
-            main:
-              - subPath: "ssh-privkey"
-                path: "/home/coder/.ssh/id_rsa"
-                readOnly: true
-              - subPath: "ssh-pubkey"
-                path: "/home/coder/.ssh/id_rsa.pub"
-                readOnly: true
-      talos-admin:
-        enabled: true
-        type: secret
-        name: "talos"
-        defaultMode: 0400
-        advancedMounts:
-          main:
-            main:
-              - path: "/var/run/secrets/talos.dev"
-                readOnly: true
-              - path: "/home/coder/.talos"
-                readOnly: true
-      tmp:
-        enabled: true
-        type: emptyDir
-        medium: Memory
-        globalMounts:
-          - subPath: "tmp"
-            path: "/tmp"
-            readOnly: false
-    serviceAccount:
-      name: "code-server"
-      create: true
-    defaultPodOptions:
-      automountServiceAccountToken: true
-      enableServiceLinks: true
-      hostname: "${CLUSTER_NAME}-code-server"
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: &uid 1000 # `coder` user
-        runAsGroup: *uid
-        fsGroup: *uid
-        fsGroupChangePolicy: "OnRootMismatch"
-        seccompProfile: { type: "RuntimeDefault" }
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: "kubernetes.io/hostname"
-          whenUnsatisfiable: "DoNotSchedule"
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: *app
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: "fuckoff.home.arpa/code-server"
-                    operator: "DoesNotExist"
+    # serviceAccount:
+    #   name: "code-server"
+    #   create: true
+
+    # persistence:
+    #   config:
+    #     enabled: true
+    #     type: pvc
+    #     accessMode: ReadWriteOnce
+    #     size: 5Gi
+    #     mountPath: /config
+    #     storageClass: local-path
+
+    fullNameOverride: code-server
+    podAnnotations:
+      reloader.stakater.com/auto: "true"
+      setGateway: "true"
