@@ -46,9 +46,6 @@ data:
                 url: https://argocd.drewpayment.com
                 key: {{ .argocd_api_key }}
   widgets.yaml: |
-    - argocd:
-        url: https://argocd.drewpayment.com
-        key: {{ .argocd_api_key }}
     - kubernetes:
         cluster:
           show: true
