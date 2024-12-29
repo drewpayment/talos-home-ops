@@ -28,7 +28,6 @@ spec:
             backend:
               service:
                 name: homepage
-                identifier: app
                 port:
                   name: http
                 # name: homepage
