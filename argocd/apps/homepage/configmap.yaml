@@ -26,6 +26,10 @@ data:
             icon: overseerr.png
             href: https://media.drewpayment.com
             description: Overseerr is a tool for managing media requests and notifications.
+        - Plex:
+            icon: plex.png
+            href: https://app.plex.tv/
+            description: Plex is a media server that allows you to stream your media to your devices.
     # - ArgoCD:
     #     - ArgoCD:
     #         icon: argocd.png
