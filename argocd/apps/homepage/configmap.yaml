@@ -16,6 +16,9 @@ data:
         - Github:
             - abbr: GH
               href: https://github.com/drewpayment
+        - Stacks:
+            - abbr: ST
+              href: https://stacks.hoyt.services
   services.yaml: |
     - Apps:
         - Spaces:
@@ -55,15 +58,6 @@ data:
             icon: traefik.png
             href: https://traefik.hoyt.services
             description: Traefik is a reverse proxy and load balancer.
-    # - ArgoCD:
-    #     - ArgoCD:
-    #         icon: argocd.png
-    #         href: https://argocd.drewpayment.com
-    #         description: ArgoCD is a tool for managing Kubernetes applications.
-    #         widgets:
-    #           - type: argocd
-    #             url: https://argocd.drewpayment.com
-    #             key: {{ .argocd_api_key }}
   widgets.yaml: |
     - kubernetes:
         cluster:
