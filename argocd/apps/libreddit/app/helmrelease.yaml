@@ -42,6 +42,7 @@ spec:
             image:
               repository: quay.io/redlib/redlib
               tag: latest
+              pullPolicy: Always
             env:
               REDLIB_DEFAULT_SHOW_NSFW: on
               REDLIB_DEFAULT_WIDE: on
