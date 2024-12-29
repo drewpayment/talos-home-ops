@@ -11,7 +11,7 @@ metadata:
     # If you encounter a redirect loop or are getting a 307 response code
     # then you need to force the nginx ingress to connect to the backend using HTTPS.
     #
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     gethomepage.dev/description: Dynamically Detected Homepage
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Cluster Management
@@ -27,10 +27,11 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: homepage
-                port:
-                  name: https
+                identifier: app
+                port: http
+                # name: homepage
+                # port:
+                #   name: https
   tls:
   - hosts:
     - *host
-    secretName: argocd-server-tls
