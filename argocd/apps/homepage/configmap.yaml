@@ -17,6 +17,13 @@ data:
             - abbr: GH
               href: https://github.com/
   services.yaml: |
+    - ArgoCD:
+      icon: argocd.png
+      description: ArgoCD is a tool for managing Kubernetes applications.
+      widgets:
+        - type: argocd
+          url: https://argocd.drewpayment.com
+          key: {{ .argocd_api_key }}
     - My First Group:
         - My First Service:
             href: http://localhost/
