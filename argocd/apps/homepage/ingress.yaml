@@ -18,7 +18,7 @@ metadata:
     gethomepage.dev/icon: homepage.png
     gethomepage.dev/name: Homepage
 spec:
-  ingressClassName: nginx
+  ingressClassName: external
   rules:
     - host: &host 'homepage.drewpayment.com'
       http:
