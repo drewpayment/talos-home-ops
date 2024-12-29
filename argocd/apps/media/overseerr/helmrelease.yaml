@@ -64,10 +64,10 @@ spec:
           forecastle.stakater.com/expose: "true"
           forecastle.stakater.com/icon: movie-open-check
           hajimari.io/icon: arcticons:overseerr
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
           external-dns.home.arpa/enabled: "true"
         hosts:
-          - host: &host media.${SECRET_DOMAIN}
+          - host: &host media.drewpayment.com
             paths:
               - path: /
                 service:
@@ -76,7 +76,7 @@ spec:
         tls:
           - hosts:
               - *host
-              
+
     fullNameOverride: overseerr
     podAnnotations:
       reloader.stakater.com/auto: 'true'
