@@ -22,6 +22,10 @@ data:
             icon: libreddit.png
             href: https://libreddit.drewpayment.com
             description: Libreddit is a free and open-source alternative Reddit front-end focused on privacy and decentralization.
+        - Overseerr:
+            icon: overseerr.png
+            href: https://media.drewpayment.com
+            description: Overseerr is a tool for managing media requests and notifications.
     # - ArgoCD:
     #     - ArgoCD:
     #         icon: argocd.png
