@@ -19,7 +19,7 @@ data:
   services.yaml: |
     - Apps:
         - Spaces:
-            icon: spaces.png
+            icon: jetbrains-youtrack.png
             href: https://spaces.hoyt.services
             description: JetBrains Spaces for project management.
         - Libreddit:
@@ -48,7 +48,7 @@ data:
             href: https://truenas.hoyt.services
             description: TrueNAS is a storage server.
         - Qbit:
-            icon: qbit.png
+            icon: qbittorrent.png
             href: https://qbit.hoyt.services
             description: Qbit is a torrent client.
         - Traefik:
