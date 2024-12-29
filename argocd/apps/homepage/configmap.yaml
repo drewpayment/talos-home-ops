@@ -17,6 +17,10 @@ data:
             - abbr: GH
               href: https://github.com/
   services.yaml: |
+    - Apps:
+        - Libreddit:
+            href: https://libreddit.drewpayment.com
+            description: Libreddit is a free and open-source alternative Reddit front-end focused on privacy and decentralization.
     - My First Group:
         - My First Service:
             href: http://localhost/
