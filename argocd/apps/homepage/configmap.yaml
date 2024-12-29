@@ -36,7 +36,7 @@ data:
             description: Plex is a media server that allows you to stream your media to your devices.
     - Homelab:
         - Proxmox:
-            icon: pve.png
+            icon: proxmox.png
             href: https://pve.hoyt.services
             description: PVE is a Proxmox Virtual Environment server.
         - Portainer:
