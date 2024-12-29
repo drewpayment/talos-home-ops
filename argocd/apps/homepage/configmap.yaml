@@ -17,8 +17,17 @@ data:
             - abbr: GH
               href: https://github.com/
   services.yaml: |
+    - ArgoCD:
+        icon: argocd.png
+        href: https://argocd.drewpayment.com
+        description: ArgoCD is a tool for managing Kubernetes applications.
+        widgets:
+          - type: argocd
+            url: https://argocd.drewpayment.com
+            key: {{ .argocd_api_key }}
     - Apps:
         - Libreddit:
+            icon: libreddit.png
             href: https://libreddit.drewpayment.com
             description: Libreddit is a free and open-source alternative Reddit front-end focused on privacy and decentralization.
     - My First Group:
