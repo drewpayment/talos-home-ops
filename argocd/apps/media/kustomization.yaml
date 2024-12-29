@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./pvc.yaml
-  - ./overseerr/kustomization.yaml
+  - ./overseerr/helmrelease.yaml
