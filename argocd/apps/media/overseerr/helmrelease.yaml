@@ -66,6 +66,11 @@ spec:
           hajimari.io/icon: arcticons:overseerr
           external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
           external-dns.home.arpa/enabled: "true"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Kubernetes
+          gethomepage.dev/icon: overseerr.png
+          gethomepage.dev/description: "Overseerr is a tool for managing media requests and notifications."
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=overseerr"
         hosts:
           - host: &host media.drewpayment.com
             paths:
