@@ -82,6 +82,11 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
           external-dns.home.arpa/enabled: "true"
+          gethomepage.dev/enabled: "true"
+          gethomepage.dev/group: Kubernetes
+          gethomepage.dev/icon: libreddit.png
+          gethomepage.dev/description: "Libreddit is a free and open-source alternative Reddit front-end focused on privacy and decentralization."
+          gethomepage.dev/pod-selector: "app.kubernetes.io/name=redlib"
         hosts:
           - host: &host 'libreddit.drewpayment.com'
             paths:

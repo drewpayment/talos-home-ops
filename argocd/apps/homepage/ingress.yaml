@@ -30,9 +30,6 @@ spec:
                 name: homepage
                 port:
                   name: http
-                # name: homepage
-                # port:
-                #   name: https
   tls:
   - hosts:
     - *host
