@@ -18,6 +18,10 @@ data:
               href: https://github.com/drewpayment
   services.yaml: |
     - Apps:
+        - Spaces:
+            icon: spaces.png
+            href: https://spaces.hoyt.services
+            description: JetBrains Spaces for project management.
         - Libreddit:
             icon: libreddit.png
             href: https://libreddit.drewpayment.com
@@ -30,6 +34,27 @@ data:
             icon: plex.png
             href: https://app.plex.tv/
             description: Plex is a media server that allows you to stream your media to your devices.
+    - Homelab:
+        - Proxmox:
+            icon: pve.png
+            href: https://pve.hoyt.services
+            description: PVE is a Proxmox Virtual Environment server.
+        - Portainer:
+            icon: portainer.png
+            href: https://portainer.hoyt.services
+            description: Portainer is a tool for managing containers.
+        - TrueNAS:
+            icon: truenas.png
+            href: https://truenas.hoyt.services
+            description: TrueNAS is a storage server.
+        - Qbit:
+            icon: qbit.png
+            href: https://qbit.hoyt.services
+            description: Qbit is a torrent client.
+        - Traefik:
+            icon: traefik.png
+            href: https://traefik.hoyt.services
+            description: Traefik is a reverse proxy and load balancer.
     # - ArgoCD:
     #     - ArgoCD:
     #         icon: argocd.png
