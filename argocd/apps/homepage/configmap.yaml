@@ -5,6 +5,8 @@ metadata:
   namespace: apps
   labels:
     app.kubernetes.io/name: homepage
+  annotations:
+    reloader.stakater.com/auto: 'true'
 data:
   kubernetes.yaml: |
     mode: cluster
