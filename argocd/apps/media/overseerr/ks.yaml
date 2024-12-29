@@ -5,7 +5,7 @@ metadata:
   name: apps-overseerr
   namespace: flux-system
 spec:
-  path: ./argocd/apps/media/overseerr/app
+  path: ./app
   prune: true
   sourceRef:
     kind: GitRepository
