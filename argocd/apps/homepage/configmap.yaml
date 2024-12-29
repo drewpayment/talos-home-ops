@@ -15,36 +15,22 @@ data:
     - Developer:
         - Github:
             - abbr: GH
-              href: https://github.com/
+              href: https://github.com/drewpayment
   services.yaml: |
     - Apps:
         - Libreddit:
             icon: libreddit.png
             href: https://libreddit.drewpayment.com
             description: Libreddit is a free and open-source alternative Reddit front-end focused on privacy and decentralization.
-    - My First Group:
-        - My First Service:
-            href: http://localhost/
-            description: Homepage is awesome
-
-    - My Second Group:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
-
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
-    - ArgoCD:
-        - ArgoCD:
-            icon: argocd.png
-            href: https://argocd.drewpayment.com
-            description: ArgoCD is a tool for managing Kubernetes applications.
-            widgets:
-              - type: argocd
-                url: https://argocd.drewpayment.com
-                key: {{ .argocd_api_key }}
+    # - ArgoCD:
+    #     - ArgoCD:
+    #         icon: argocd.png
+    #         href: https://argocd.drewpayment.com
+    #         description: ArgoCD is a tool for managing Kubernetes applications.
+    #         widgets:
+    #           - type: argocd
+    #             url: https://argocd.drewpayment.com
+    #             key: {{ .argocd_api_key }}
   widgets.yaml: |
     - kubernetes:
         cluster:
