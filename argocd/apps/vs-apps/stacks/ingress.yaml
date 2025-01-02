@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stacks
+  namespace: vs-apps
+  labels:
+    app.kubernetes.io/name: stacks
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
+    external-dns.home.arpa/enabled: "true"
+    gethomepage.dev/description: Dynamically Detected Homepage
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Cluster Management
+    gethomepage.dev/icon: stack.png
+    gethomepage.dev/name: Stacks
+spec:
+  ingressClassName: external
+  rules:
+    - host: &host 'stacks.drewpayment.com'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: stacks
+                port:
+                  name: http
+  tls:
+  - hosts:
+    - *host

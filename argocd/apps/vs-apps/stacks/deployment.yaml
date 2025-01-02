@@ -1,0 +1,145 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stacks
+  namespace: vs-apps
+  labels:
+    app.kubernetes.io/name: stacks
+  annotations:
+    reloader.stakater.com/auto: 'true'
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: stacks
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: stacks
+  spec:
+    serviceAccountName: stacks
+    automountServiceAccountToken: true
+    dnsPolicy: ClusterFirst
+    enableServiceLinks: true
+    containers:
+      - name: stacks
+        image: "ghcr.io/drewpayment/stacks:latest"
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+        env:
+          - name: CMP_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: cmp-client-id
+                key: CMP_CLIENT_ID
+          - name: ENABLE_DRIZZLE_LOGGER
+            valueFrom:
+              secretKeyRef:
+                name: enable-drizzle-logger
+                key: ENABLE_DRIZZLE_LOGGER
+          - name: MYSQL_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-host
+                key: MYSQL_DB_HOST
+          - name: MYSQL_DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-port
+                key: MYSQL_DB_PORT
+          - name: MYSQL_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-user
+                key: MYSQL_DB_USER
+          - name: MYSQL_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-password
+                key: MYSQL_DB_PASSWORD
+          - name: MYSQL_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-name
+                key: MYSQL_DB_NAME
+          - name: MYSQL_USE_SSH
+            valueFrom:
+              secretKeyRef:
+                name: mysql-use-ssh
+                key: MYSQL_USE_SSH
+          - name: MYSQL_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-host
+                key: MYSQL_DB_HOST
+          - name: MYSQL_DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-port
+                key: MYSQL_DB_PORT
+          - name: MYSQL_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-user
+                key: MYSQL_DB_USER
+          - name: MYSQL_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-password
+                key: MYSQL_DB_PASSWORD
+          - name: MYSQL_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-name
+                key: MYSQL_DB_NAME
+          - name: POSTGRES_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: postgres-db-host
+                key: POSTGRES_DB_HOST
+          - name: POSTGRES_DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: postgres-db-port
+                key: POSTGRES_DB_PORT
+          - name: POSTGRES_DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: postgres-db-user
+                key: POSTGRES_DB_USER
+          - name: POSTGRES_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-db-password
+                key: POSTGRES_DB_PASSWORD
+          - name: POSTGRES_DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-db-name
+                key: POSTGRES_DB_NAME
+          - name: POSTGRES_MAX_CONNECTIONS
+            valueFrom:
+              secretKeyRef:
+                name: postgres-max-connections
+                key: POSTGRES_MAX_CONNECTIONS
+          - name: FROM_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: from-email
+                key: FROM_EMAIL
+          - name: RESEND_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: resend-api-key
+                key: RESEND_API_KEY
+          - name: ORIGIN
+            valueFrom:
+              secretKeyRef:
+                name: origin
+                key: ORIGIN
