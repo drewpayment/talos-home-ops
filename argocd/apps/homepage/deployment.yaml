@@ -27,6 +27,13 @@ spec:
       containers:
         - name: homepage
           image: "ghcr.io/gethomepage/homepage:latest"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
           imagePullPolicy: Always
           ports:
             - name: http

@@ -24,9 +24,18 @@ spec:
       automountServiceAccountToken: true
       dnsPolicy: ClusterFirst
       enableServiceLinks: true
+      imagePullSecrets:
+        - name: github-registry-secret
       containers:
         - name: stacks
           image: "ghcr.io/drewpayment/stacks:latest"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
           imagePullPolicy: Always
           ports:
             - name: http
