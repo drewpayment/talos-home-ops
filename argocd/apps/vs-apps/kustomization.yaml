@@ -6,3 +6,4 @@ resources:
   - ./stacks/deployment.yaml
   - ./stacks/ingress.yaml
   - ./stacks/service.yaml
+  - ./stacks/serviceaccount.yaml
