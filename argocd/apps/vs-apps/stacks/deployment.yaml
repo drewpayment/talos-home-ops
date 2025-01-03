@@ -50,105 +50,105 @@ spec:
             - name: ENABLE_DRIZZLE_LOGGER
               valueFrom:
                 secretKeyRef:
-                  name: enable-drizzle-logger
+                  name: cluster-external-secrets
                   key: ENABLE_DRIZZLE_LOGGER
             - name: MYSQL_DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-host
+                  name: cluster-external-secrets
                   key: MYSQL_DB_HOST
             - name: MYSQL_DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-port
+                  name: cluster-external-secrets
                   key: MYSQL_DB_PORT
             - name: MYSQL_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-user
+                  name: cluster-external-secrets
                   key: MYSQL_DB_USER
             - name: MYSQL_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-password
+                  name: cluster-external-secrets
                   key: MYSQL_DB_PASSWORD
             - name: MYSQL_DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-name
+                  name: cluster-external-secrets
                   key: MYSQL_DB_NAME
             - name: MYSQL_USE_SSH
               valueFrom:
                 secretKeyRef:
-                  name: mysql-use-ssh
+                  name: cluster-external-secrets
                   key: MYSQL_USE_SSH
             - name: MYSQL_DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-host
+                  name: cluster-external-secrets
                   key: MYSQL_DB_HOST
             - name: MYSQL_DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-port
+                  name: cluster-external-secrets
                   key: MYSQL_DB_PORT
             - name: MYSQL_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-user
+                  name: cluster-external-secrets
                   key: MYSQL_DB_USER
             - name: MYSQL_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-password
+                  name: cluster-external-secrets
                   key: MYSQL_DB_PASSWORD
             - name: MYSQL_DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: mysql-db-name
+                  name: cluster-external-secrets
                   key: MYSQL_DB_NAME
             - name: POSTGRES_DB_HOST
               valueFrom:
                 secretKeyRef:
-                  name: postgres-db-host
+                  name: cluster-external-secrets
                   key: POSTGRES_DB_HOST
             - name: POSTGRES_DB_PORT
               valueFrom:
                 secretKeyRef:
-                  name: postgres-db-port
+                  name: cluster-external-secrets
                   key: POSTGRES_DB_PORT
             - name: POSTGRES_DB_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-db-user
+                  name: cluster-external-secrets
                   key: POSTGRES_DB_USER
             - name: POSTGRES_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-db-password
+                  name: cluster-external-secrets
                   key: POSTGRES_DB_PASSWORD
             - name: POSTGRES_DB_NAME
               valueFrom:
                 secretKeyRef:
-                  name: postgres-db-name
+                  name: cluster-external-secrets
                   key: POSTGRES_DB_NAME
             - name: POSTGRES_MAX_CONNECTIONS
               valueFrom:
                 secretKeyRef:
-                  name: postgres-max-connections
+                  name: cluster-external-secrets
                   key: POSTGRES_MAX_CONNECTIONS
             - name: FROM_EMAIL
               valueFrom:
                 secretKeyRef:
-                  name: from-email
+                  name: cluster-external-secrets
                   key: FROM_EMAIL
             - name: RESEND_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: resend-api-key
+                  name: cluster-external-secrets
                   key: RESEND_API_KEY
             - name: ORIGIN
               valueFrom:
                 secretKeyRef:
-                  name: origin
+                  name: cluster-external-secrets
                   key: ORIGIN
