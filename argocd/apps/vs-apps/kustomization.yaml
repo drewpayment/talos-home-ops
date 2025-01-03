@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./ns.yaml
   - ./clustersecretstore.yaml
+  - ./externalsecret.yaml
   - ./stacks/deployment.yaml
   - ./stacks/ingress.yaml
   - ./stacks/service.yaml
