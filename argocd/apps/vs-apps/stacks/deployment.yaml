@@ -28,7 +28,7 @@ spec:
         - name: github-registry-secret
       containers:
         - name: stacks
-          image: "ghcr.io/drewpayment/stacks:latest"
+          image: "ghcr.io/drewpayment/stacks:df8b9af0773eb6593d7bd6970291a1e218c10ef1"
           resources:
             limits:
               cpu: 200m
