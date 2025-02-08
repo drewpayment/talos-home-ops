@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: temporal
-  namespace: temporal
 spec:
   project: default
   source:
@@ -17,38 +16,20 @@ spec:
             persistence:
               default:
                 driver: "sql"
-
                 sql:
                   driver: "postgres12"
                   host: 192.168.86.142
                   port: 5432
                   database: temporal
-                  user:
-                    valueFrom:
-                      name: cluster-external-secrets
-                      key: POSTGRES_DB_HOST
-                  password:
-                    valueFrom:
-                      name: cluster-external-secrets
-                      key: POSTGRES_DB_PASSWORD
                   maxConns: 20
                   maxConnLifetime: "1h"
               visibility:
                 driver: "sql"
-
                 sql:
                   driver: "postgres12"
                   host: 192.168.86.142
                   port: 5432
                   database: temporal_visibility
-                  user:
-                    valueFrom:
-                      name: cluster-external-secrets
-                      key: POSTGRES_DB_HOST
-                  password:
-                    valueFrom:
-                      name: cluster-external-secrets
-                      key: POSTGRES_DB_PASSWORD
                   maxConns: 20
                   maxConnLifetime: "1h"
         cassandra:
@@ -68,6 +49,23 @@ spec:
             enabled: true
           update:
             enabled: true
+      valuesFrom:
+        - secretKeyRef:
+            name: cluster-external-secrets
+            key: POSTGRES_DB_HOST
+            targetPath: server.config.persistence.default.sql.user
+        - secretKeyRef:
+            name: cluster-external-secrets
+            key: POSTGRES_DB_PASSWORD
+            targetPath: server.config.persistence.default.sql.password
+        - secretKeyRef:
+            name: cluster-external-secrets
+            key: POSTGRES_DB_HOST
+            targetPath: server.config.persistence.visibility.sql.user
+        - secretKeyRef:
+            name: cluster-external-secrets
+            key: POSTGRES_DB_PASSWORD
+            targetPath: server.config.persistence.visibility.sql.password
   destination:
     server: https://kubernetes.default.svc
     namespace: temporal

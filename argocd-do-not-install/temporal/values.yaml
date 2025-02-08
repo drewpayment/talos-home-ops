@@ -18,9 +18,6 @@ server:
             valueFrom:
               name: cluster-external-secrets
               key: POSTGRES_DB_PASSWORD
-          # for a production deployment use this instead of `password` and provision the secret beforehand e.g. with a sealed secret
-          # it has a single key called `password`
-          # existingSecret: temporal-default-store
           maxConns: 20
           maxConnLifetime: "1h"
           # tls:
@@ -47,9 +44,6 @@ server:
             valueFrom:
               name: cluster-external-secrets
               key: POSTGRES_DB_PASSWORD
-          # for a production deployment use this instead of `password` and provision the secret beforehand e.g. with a sealed secret
-          # it has a single key called `password`
-          # existingSecret: temporal-visibility-store
           maxConns: 20
           maxConnLifetime: "1h"
           # tls:

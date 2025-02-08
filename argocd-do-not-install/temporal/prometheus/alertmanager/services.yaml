@@ -1,0 +1,46 @@
+---
+# Source: temporal/charts/prometheus/charts/alertmanager/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-alertmanager
+  labels:
+    helm.sh/chart: alertmanager-1.11.0
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+  namespace: argocd
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9093
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/instance: test
+---
+# Source: temporal/charts/prometheus/charts/alertmanager/templates/services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-alertmanager-headless
+  labels:
+    helm.sh/chart: alertmanager-1.11.0
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "v0.27.0"
+    app.kubernetes.io/managed-by: Helm
+  namespace: argocd
+spec:
+  clusterIP: None
+  ports:
+    - port: 9093
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: alertmanager
+    app.kubernetes.io/instance: test

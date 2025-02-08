@@ -1,0 +1,25 @@
+---
+# Source: temporal/templates/web-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: test-temporal-web
+  labels:
+    app.kubernetes.io/component: web
+    app.kubernetes.io/name: temporal
+    helm.sh/chart: temporal-0.55.0
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/version: "1.26.2"
+    app.kubernetes.io/part-of: temporal
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/instance: test
+    app.kubernetes.io/component: web
