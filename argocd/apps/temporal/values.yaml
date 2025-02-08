@@ -1,4 +1,3 @@
-enableHelm: true
 
 server:
   config:
@@ -89,8 +88,8 @@ elasticsearch:
 
 schema:
   createDatabase:
-    enabled: true
+    enabled: false
   setup:
-    enabled: false
+    enabled: true
   update:
-    enabled: false
+    enabled: true
