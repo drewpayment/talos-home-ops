@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: temporal
-  namespace: argocd
+  namespace: temporal
 spec:
   project: default
   source:
@@ -10,8 +10,67 @@ spec:
     repoURL: https://go.temporal.io/helm-charts
     targetRevision: 0.55.0
     helm:
-      valuesFiles:
-      - values.yaml
+      values: |
+        server:
+          replicaCount: 1
+          config:
+            persistence:
+              default:
+                driver: "sql"
+
+                sql:
+                  driver: "postgres12"
+                  host: 192.168.86.142
+                  port: 5432
+                  database: temporal
+                  user:
+                    valueFrom:
+                      name: cluster-external-secrets
+                      key: POSTGRES_DB_HOST
+                  password:
+                    valueFrom:
+                      name: cluster-external-secrets
+                      key: POSTGRES_DB_PASSWORD
+                  maxConns: 20
+                  maxConnLifetime: "1h"
+              visibility:
+                driver: "sql"
+
+                sql:
+                  driver: "postgres12"
+                  host: 192.168.86.142
+                  port: 5432
+                  database: temporal_visibility
+                  user:
+                    valueFrom:
+                      name: cluster-external-secrets
+                      key: POSTGRES_DB_HOST
+                  password:
+                    valueFrom:
+                      name: cluster-external-secrets
+                      key: POSTGRES_DB_PASSWORD
+                  maxConns: 20
+                  maxConnLifetime: "1h"
+        cassandra:
+          enabled: false
+        mysql:
+          enabled: false
+        postgresql:
+          enabled: true
+        grafana:
+          enabled: true
+        elasticsearch:
+          enabled: true
+        schema:
+          createDatabase:
+            enabled: false
+          setup:
+            enabled: true
+          update:
+            enabled: true
   destination:
-    name: "in-cluster"
+    server: https://kubernetes.default.svc
     namespace: temporal
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
