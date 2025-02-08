@@ -9,4 +9,4 @@ resources:
   - ./stacks/ingress.yaml
   - ./stacks/service.yaml
   - ./stacks/serviceaccount.yaml
-  - ./temporal
+  - ./temporal/kustomization.yaml
