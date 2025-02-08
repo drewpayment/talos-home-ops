@@ -1,3 +1,5 @@
+enableHelm: true
+
 server:
   config:
     persistence:
