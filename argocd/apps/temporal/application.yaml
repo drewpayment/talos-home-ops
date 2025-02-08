@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: temporal
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: temporal
+    repoURL: https://go.temporal.io/helm-charts
+    targetRevision: 0.55.0
+    helm:
+      valuesFiles:
+      - values.yaml
+  destination:
+    name: "in-cluster"
+    namespace: temporal
