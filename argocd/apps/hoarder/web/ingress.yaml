@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hoarder-web-ingress
+  namespace: hoarder
+  labels:
+    app.kubernetes.io/name: hoarder
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
+    external-dns.home.arpa/enabled: "true"
+    gethomepage.dev/description: Hoarder
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Cluster Management
+    gethomepage.dev/icon: bookmark.png
+    gethomepage.dev/name: Hoarder
+spec:
+  ingressClassName: external
+  rules:
+    - host: &host 'hoarder.drewpayment.com'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: hoarder-web-svc
+                port:
+                  number: 3000
+  tls:
+  - hosts:
+    - *host
