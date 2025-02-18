@@ -37,26 +37,26 @@ spec:
             secretKeyRef:
               name: cluster-external-secrets
               key: NEXTAUTH_SECRET
-        - name: OPENAI_BASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: cluster-external-secrets
-              key: OPENAI_BASE_URL
-        - name: OPENAI_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: cluster-external-secrets
-              key: OPENAI_API_KEY
-        - name: INFERENCE_TEXT_MODEL
-          value: gemini-2.0-flash
-        - name: INFERENCE_IMAGE_MODEL
-          value: gemini-2.0-flash
-        - name: EMBEDDING_TEXT_MODEL
-          value: text-embedding-004
+        # - name: OPENAI_BASE_URL
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: cluster-external-secrets
+        #       key: OPENAI_BASE_URL
+        # - name: OPENAI_API_KEY
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: cluster-external-secrets
+        #       key: OPENAI_API_KEY
+        # - name: INFERENCE_TEXT_MODEL
+        #   value: gemini-2.0-flash
+        # - name: INFERENCE_IMAGE_MODEL
+        #   value: gemini-2.0-flash
+        # - name: EMBEDDING_TEXT_MODEL
+        #   value: text-embedding-004
         # - name: INFERENCE_CONTEXT_LENGTH
         #   value: 8000
-        - name: DISABLE_SIGNUPS
-          value: true
+        # - name: DISABLE_SIGNUPS
+        #   value: true
         - name: HOARDER_VERSION
           value: release
         - name: NEXTAUTH_URL
