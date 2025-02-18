@@ -54,7 +54,7 @@ spec:
         - name: EMBEDDING_TEXT_MODEL
           value: text-embedding-004
         - name: INFERENCE_CONTEXT_LENGTH
-          value: 1048576
+          value: "1048576"
         - name: DISABLE_SIGNUPS
           value: true
         - name: HOARDER_VERSION
