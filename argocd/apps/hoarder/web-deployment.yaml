@@ -37,8 +37,10 @@ spec:
             secretKeyRef:
               name: cluster-external-secrets
               key: NEXTAUTH_SECRET
-        - configMapRef:
-            name: hoarder-configuration-h4242cgbtk
+        - name: HOARDER_VERSION
+          value: release
+        - name: NEXTAUTH_URL
+          value: http://localhost:3000
         image: ghcr.io/hoarder-app/hoarder:release
         imagePullPolicy: Always
         name: web
