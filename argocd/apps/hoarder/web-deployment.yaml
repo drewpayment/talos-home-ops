@@ -53,8 +53,8 @@ spec:
           value: gemini-2.0-flash
         - name: EMBEDDING_TEXT_MODEL
           value: text-embedding-004
-        - name: INFERENCE_CONTEXT_LENGTH
-          value: 8000
+        # - name: INFERENCE_CONTEXT_LENGTH
+        #   value: 8000
         - name: DISABLE_SIGNUPS
           value: true
         - name: HOARDER_VERSION
