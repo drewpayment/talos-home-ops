@@ -1,0 +1,8 @@
+apiVersion: v1
+data:
+  HOARDER_VERSION: release
+  NEXTAUTH_URL: http://localhost:3000
+kind: ConfigMap
+metadata:
+  name: hoarder-configuration-h4242cgbtk
+  namespace: hoarder

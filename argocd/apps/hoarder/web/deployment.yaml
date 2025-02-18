@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: hoarder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hoarder-web
+  template:
+    metadata:
+      labels:
+        app: hoarder-web
+    spec:
+      containers:
+      - env:
+        - name: MEILI_ADDR
+          value: http://meilisearch:7700
+        - name: BROWSER_WEB_URL
+          value: http://chrome:9222
+        - name: DATA_DIR
+          value: /data
+        - name: MEILI_MASTER_KEY
+          valueFrom:
+            secretKeyRef:
+              name: cluster-external-secrets
+              key: MEILI_MASTER_KEY
+        - name: NEXT_PUBLIC_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: cluster-external-secrets
+              key: NEXT_PUBLIC_SECRET
+        - name: NEXTAUTH_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: cluster-external-secrets
+              key: NEXTAUTH_SECRET
+        - configMapRef:
+            name: hoarder-configuration-h4242cgbtk
+        image: ghcr.io/hoarder-app/hoarder:release
+        imagePullPolicy: Always
+        name: web
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - mountPath: /data
+          name: data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: data-pvc
