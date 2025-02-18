@@ -6,7 +6,8 @@ metadata:
   namespace: hoarder
 spec:
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
+  storageClassName: tank-db
   resources:
     requests:
       storage: 1Gi
