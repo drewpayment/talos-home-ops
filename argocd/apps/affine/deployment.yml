@@ -57,9 +57,7 @@ spec:
               key: AFFINE_SERVER_HOST
         - name: PORT
           valueFrom:
-            configMapKeyRef:
-              name: affine-config
-              key: PORT
+            value: 3010
       volumes:
       - name: affine-upload
         persistentVolumeClaim:
