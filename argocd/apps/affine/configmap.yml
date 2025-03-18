@@ -7,10 +7,10 @@ metadata:
   namespace: affine
 data:
   AFFINE_REVISION: "stable"
-  PORT: "3010"
+  PORT: 3010
   AFFINE_SERVER_HTTPS: "true"
   AFFINE_SERVER_HOST: "notes.drewpayment.com"
   DB_DATABASE: "affine"
   REDIS_SERVER_HOST: "affine-redis"
   POSTGRES_HOST: "192.168.86.142"
-  POSTGRES_PORT: "5432"
+  POSTGRES_PORT: 5432
