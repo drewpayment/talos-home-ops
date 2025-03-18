@@ -1,5 +1,3 @@
----
-# Ingress for external access
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -21,13 +19,13 @@ spec:
     - host: &host 'notes.drewpayment.com'
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: affine-server
-              port:
-                number: 3010
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: affine-server-svc
+                port:
+                  number: 3010
   tls:
   - hosts:
     - *host

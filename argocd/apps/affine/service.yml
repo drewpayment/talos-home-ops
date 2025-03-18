@@ -1,9 +1,8 @@
 ---
-# AFFiNE Server Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: affine-server
+  name: affine-server-svc
   namespace: affine
 spec:
   ports:
@@ -11,5 +10,5 @@ spec:
     protocol: TCP 
     targetPort: 3010
   selector: 
-    app: affine
+    app: affine-web
   type: LoadBalancer
