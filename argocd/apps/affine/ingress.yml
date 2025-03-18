@@ -27,7 +27,7 @@ spec:
             service:
               name: affine-server
               port:
-                number: 80
+                number: 3010
   tls:
   - hosts:
     - *host
