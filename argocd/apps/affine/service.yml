@@ -1,0 +1,13 @@
+---
+# AFFiNE Server Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: affine-server
+  namespace: affine
+spec:
+  selector:
+    app: affine-server
+  ports:
+  - port: 80
+    targetPort: 3010

@@ -1,0 +1,29 @@
+---
+# PersistentVolumeClaim for uploads
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: affine-upload-pvc
+  namespace: affine
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: tank-db
+  resources:
+    requests:
+      storage: 5Gi
+      
+---
+# PersistentVolumeClaim for config
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: affine-config-pvc
+  namespace: affine
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: tank-db
+  resources:
+    requests:
+      storage: 1Gi

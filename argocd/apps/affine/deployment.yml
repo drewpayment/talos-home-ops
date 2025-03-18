@@ -1,0 +1,69 @@
+---
+# AFFiNE Server Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: affine-server
+  namespace: affine
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: affine-server
+  template:
+    metadata:
+      labels:
+        app: affine-server
+    spec:
+      containers:
+      - name: affine
+        image: ghcr.io/toeverything/affine-graphql:stable
+        ports:
+        - containerPort: 3010
+        volumeMounts:
+        - name: affine-upload
+          mountPath: /root/.affine/storage
+        - name: affine-config
+          mountPath: /root/.affine/config
+        env:
+        - name: REDIS_SERVER_HOST
+          value: "affine-redis"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: cluster-external-secrets
+              key: AFFINE_PG_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: cluster-external-secrets
+              key: AFFINE_PG_PASSWORD
+        - name: DB_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              name: affine-config
+              key: DB_DATABASE
+        - name: DATABASE_URL
+          value: "postgresql://$(DB_USERNAME):$(DB_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(DB_DATABASE)"
+        - name: AFFINE_SERVER_HTTPS
+          valueFrom:
+            configMapKeyRef:
+              name: affine-config
+              key: AFFINE_SERVER_HTTPS
+        - name: AFFINE_SERVER_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: affine-config
+              key: AFFINE_SERVER_HOST
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: affine-config
+              key: PORT
+      volumes:
+      - name: affine-upload
+        persistentVolumeClaim:
+          claimName: affine-upload-pvc
+      - name: affine-config
+        persistentVolumeClaim:
+          claimName: affine-config-pvc
