@@ -5,22 +5,29 @@ kind: Ingress
 metadata:
   name: affine-ingress
   namespace: affine
+  labels:
+    app.kubernetes.io/name: affine
   annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
+    external-dns.home.arpa/enabled: "true"
+    gethomepage.dev/description: Affine
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Cluster Management
+    gethomepage.dev/icon: book.png
+    gethomepage.dev/name: Affine
 spec:
+  ingressClassName: external
+  rules:
+    - host: &host notes.drewpayment.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: affine-server
+              port:
+                number: 80
   tls:
   - hosts:
-    - notes.drewpayment.com
-    secretName: affine-tls
-  rules:
-  - host: notes.drewpayment.com
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: affine-server
-            port:
-              number: 80
+    - *host
