@@ -55,6 +55,11 @@ spec:
             configMapKeyRef:
               name: affine-config
               key: AFFINE_SERVER_HOST
+        - name: AFFINE_SERVER_EXTERNAL_URL
+          valueFrom:
+            configMapKeyRef:
+              name: affine-config
+              key: AFFINE_SERVER_EXTERNAL_URL
         - name: PORT
           value: "3010"
       volumes:

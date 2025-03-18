@@ -7,8 +7,8 @@ metadata:
 spec:
   ports:
   - port: 3010
-    protocol: TCP 
+    protocol: TCP
     targetPort: 3010
-  selector: 
-    app: affine-web
+  selector:
+    app: affine-server-svc
   type: LoadBalancer
