@@ -44,7 +44,7 @@ spec:
               name: affine-config
               key: DB_DATABASE
         - name: DATABASE_URL
-          value: "postgresql://$(DB_USERNAME):$(DB_PASSWORD)@$(POSTGRES_HOST):$(POSTGRES_PORT)/$(DB_DATABASE)"
+          value: "postgresql://$(DB_USERNAME):$(DB_PASSWORD)@$(POSTGRES_HOST):5432/affine"
         - name: AFFINE_SERVER_HTTPS
           valueFrom:
             configMapKeyRef:
