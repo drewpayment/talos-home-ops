@@ -4,6 +4,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: affine-config
+  namespace: affine
 data:
   AFFINE_REVISION: "stable"
   PORT: "3010"
