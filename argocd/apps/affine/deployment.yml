@@ -5,8 +5,13 @@ kind: Deployment
 metadata:
   name: affine-server
   namespace: affine
+  annotations:
+    reloader.stakater.com/auto: 'true'
 spec:
   replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: affine-server
@@ -15,6 +20,7 @@ spec:
       labels:
         app: affine-server
     spec:
+      dnsPolicy: ClusterFirst
       containers:
       - name: affine
         image: ghcr.io/toeverything/affine-graphql:stable
