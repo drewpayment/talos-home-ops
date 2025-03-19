@@ -52,11 +52,11 @@ spec:
             configMapKeyRef:
               name: affine-config
               key: AFFINE_SERVER_HTTPS
-        - name: AFFINE_SERVER_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: affine-config
-              key: AFFINE_SERVER_HOST
+        # - name: AFFINE_SERVER_HOST
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: affine-config
+        #       key: AFFINE_SERVER_HOST
         - name: AFFINE_SERVER_EXTERNAL_URL
           valueFrom:
             configMapKeyRef:
