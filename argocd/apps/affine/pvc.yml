@@ -5,6 +5,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: affine-upload-pvc
   namespace: affine
+  annotations: 
+    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/nfs
+    nfs.io/path: /mnt/tank/db/affine-upload
 spec:
   accessModes:
     - ReadWriteOnce
@@ -20,6 +23,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: affine-config-pvc
   namespace: affine
+  annotations: 
+    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/nfs
+    nfs.io/path: /mnt/tank/db/affine-config
 spec:
   accessModes:
     - ReadWriteOnce
