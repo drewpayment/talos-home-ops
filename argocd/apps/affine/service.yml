@@ -6,7 +6,7 @@ metadata:
   namespace: affine
 spec:
   ports:
-    - port: 3010
+    - port: 80
       protocol: TCP
       targetPort: http
       name: http
