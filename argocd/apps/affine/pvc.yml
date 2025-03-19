@@ -27,7 +27,7 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  volumeName: affice-upload-pv
+  volumeName: affine-upload-pv
       
 ---
 apiVersion: v1
