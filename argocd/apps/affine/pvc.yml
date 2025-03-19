@@ -12,7 +12,7 @@ metadata:
     nfs.io/path: /mnt/tank/appdata/affine/upload
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: affine-storage
   resources:
     requests:
@@ -30,7 +30,7 @@ metadata:
     nfs.io/path: /mnt/tank/appdata/affine/config
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: affine-storage
   resources:
     requests:
