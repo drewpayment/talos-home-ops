@@ -60,8 +60,11 @@ spec:
             configMapKeyRef:
               name: affine-config
               key: AFFINE_SERVER_EXTERNAL_URL
-        - name: PORT
-          value: "3010"
+        - name: AFFINE_SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: affine-config
+              key: PORT
       volumes:
       - name: affine-upload
         persistentVolumeClaim:
