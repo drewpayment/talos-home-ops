@@ -17,6 +17,10 @@ spec:
       labels:
         app: affine-server
     spec:
+      serviceAccountName: affine
+      automountServiceAccountToken: true
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
       containers:
         - name: affine
           image: ghcr.io/toeverything/affine-graphql:stable
