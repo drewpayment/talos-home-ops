@@ -13,7 +13,7 @@ spec:
   storageClassName: affine-storage
   nfs:
     server: 192.168.86.44
-    path: /mnt/tank/appdata/upload
+    path: /mnt/tank/appdata/affine/upload
 
 ---
 # PersistentVolumeClaim for uploads
@@ -46,7 +46,7 @@ spec:
   storageClassName: affine-storage
   nfs:
     server: 192.168.86.44
-    path: /mnt/tank/appdata/config
+    path: /mnt/tank/appdata/affine/config
 
 ---
 # PersistentVolumeClaim for config
