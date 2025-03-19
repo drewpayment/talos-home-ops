@@ -1,12 +1,9 @@
 ---
-# AFFiNE Server Deployment
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: affine-server
+  name: affine-server-deployment
   namespace: affine
-  annotations:
-    reloader.stakater.com/auto: 'true'
 spec:
   replicas: 1
   revisionHistoryLimit: 3
@@ -20,7 +17,6 @@ spec:
       labels:
         app: affine-server
     spec:
-      dnsPolicy: ClusterFirst
       containers:
       - name: affine
         image: ghcr.io/toeverything/affine-graphql:stable
