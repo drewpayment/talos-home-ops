@@ -6,6 +6,6 @@ metadata:
 provisioner: nfs.csi.k8s.io
 parameters:
   server: 192.168.86.44
-  share: /mnt/tank/db/affine
+  share: /mnt/tank/appdata/affine
 reclaimPolicy: Retain
 volumeBindingMode: Immediate
