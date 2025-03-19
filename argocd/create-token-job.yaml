@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-headlamp-token
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      serviceAccountName: token-creator-sa # This SA needs token creation permissions
+      containers:
+      - name: token-creator
+        image: bitnami/kubectl:latest
+        command:
+        - /bin/bash
+        - -c
+        - |
+          TOKEN=$(kubectl create token my-headlamp -n kube-system)
+          echo "Token: $TOKEN"
+          echo "$TOKEN" > /tmp/token/token.txt
+        volumeMounts:
+        - name: token-volume
+          mountPath: /tmp/token
+      volumes:
+      - name: token-volume
+        emptyDir: {}
+      restartPolicy: Never
+ 
