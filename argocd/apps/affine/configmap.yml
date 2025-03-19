@@ -9,7 +9,7 @@ data:
   AFFINE_REVISION: "stable"
   PORT: "3010"
   AFFINE_SERVER_HTTPS: "false"
-  # AFFINE_SERVER_HOST: "notes.drewpayment.com"
+  AFFINE_SERVER_HOST: "notes.drewpayment.com"
   AFFINE_SERVER_EXTERNAL_URL: "https://notes.drewpayment.com"
   DB_DATABASE: "affine"
   REDIS_SERVER_HOST: "affine-redis"
