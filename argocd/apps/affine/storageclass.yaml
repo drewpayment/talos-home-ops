@@ -3,7 +3,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: affine-storage
-provisioner: kubernetes.io/no-provisioner
+provisioner: nfs.csi.k8s.io
 parameters:
   server: 192.168.86.44
   share: /mnt/tank/appdata/affine
