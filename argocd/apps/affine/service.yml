@@ -11,8 +11,8 @@ spec:
   ports:
     - port: 3010
       protocol: TCP
-      targetPort: http
+      targetPort: 3010
       name: http
   selector:
-    app.kubernetes.io/name: affine-server-svc
+    app.kubernetes.io/name: affine
 
