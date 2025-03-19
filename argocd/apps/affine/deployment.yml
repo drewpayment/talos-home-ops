@@ -19,7 +19,9 @@ spec:
       - name: affine
         image: ghcr.io/toeverything/affine-graphql:stable
         ports:
-        - containerPort: 3010
+        - name: http
+          containerPort: 80
+          protocol: TCP
         volumeMounts:
         - name: affine-upload
           mountPath: /root/.affine/storage
