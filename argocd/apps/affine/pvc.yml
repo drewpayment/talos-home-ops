@@ -8,7 +8,7 @@ metadata:
   name: affine-upload-pvc
   namespace: affine
   annotations: 
-    # volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/nfs
+    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/nfs
     nfs.io/path: /mnt/tank/appdata/affine/upload
 spec:
   accessModes:
@@ -26,7 +26,7 @@ metadata:
   name: affine-config-pvc
   namespace: affine
   annotations: 
-    # volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/nfs
+    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/nfs
     nfs.io/path: /mnt/tank/appdata/affine/config
 spec:
   accessModes:
