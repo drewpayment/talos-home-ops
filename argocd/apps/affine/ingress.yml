@@ -23,7 +23,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: affine-server-svc
+                name: affine
                 port:
                   name: http
   tls:
