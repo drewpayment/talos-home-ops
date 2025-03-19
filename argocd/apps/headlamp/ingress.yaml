@@ -1,0 +1,23 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: headlamp
+  namespace: kube-system
+  labels:
+    app.kubernetes.io/name: headlamp
+  annotations:
+    external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
+    external-dns.home.arpa/enabled: "true"
+spec:
+  ingressClassName: external
+  rules:
+  - host: &host 'headlamp.drewpayment.com'
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: headlamp
+            port:
+              number: 80
