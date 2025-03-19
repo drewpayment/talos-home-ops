@@ -25,7 +25,7 @@ spec:
               service:
                 name: affine-server-svc
                 port:
-                  number: 3010
+                  name: http
   tls:
   - hosts:
     - *host

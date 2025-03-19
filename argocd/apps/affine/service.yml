@@ -6,9 +6,10 @@ metadata:
   namespace: affine
 spec:
   ports:
-  - port: 3010
-    protocol: TCP
-    targetPort: 3010
+    - port: 3010
+      protocol: TCP
+      targetPort: http
+      name: http
   selector:
-    app: affine-server-svc
-  type: LoadBalancer
+    app.kubernetes.io/name: affine-server-svc
+  type: ClusterIP
