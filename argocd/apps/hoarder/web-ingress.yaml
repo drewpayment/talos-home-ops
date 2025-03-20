@@ -11,7 +11,7 @@ metadata:
     gethomepage.dev/description: Hoarder
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Cluster Management
-    gethomepage.dev/icon: bookmark.png
+    gethomepage.dev/icon: hoarder-light.png
     gethomepage.dev/name: Hoarder
 spec:
   ingressClassName: external

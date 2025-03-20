@@ -8,6 +8,11 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
     external-dns.home.arpa/enabled: "true"
+    gethomepage.dev/description: Dynamically Detected Homepage
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Cluster Management
+    gethomepage.dev/icon: stack.png
+    gethomepage.dev/name: Stacks
 spec:
   ingressClassName: external
   rules:

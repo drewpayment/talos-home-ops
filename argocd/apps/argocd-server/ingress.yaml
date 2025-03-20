@@ -12,7 +12,7 @@ metadata:
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
     gethomepage.dev/enabled: "true"
     gethomepage.dev/group: Kubernetes
-    gethomepage.dev/icon: argocd.png
+    gethomepage.dev/icon: argo-cd.png
     gethomepage.dev/description: "ArgoCD is a tool for managing Kubernetes applications."
     gethomepage.dev/pod-selector: "app.kubernetes.io/name=argocd-server"
 spec:
