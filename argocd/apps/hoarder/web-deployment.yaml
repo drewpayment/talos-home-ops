@@ -75,7 +75,7 @@ spec:
         - name: HOARDER_VERSION
           value: release
         - name: NEXTAUTH_URL
-          value: http://localhost:3000
+          value: http://hoarder.drewpayment.com
         image: ghcr.io/hoarder-app/hoarder:release
         imagePullPolicy: Always
         name: web
