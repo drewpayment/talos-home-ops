@@ -10,9 +10,9 @@ metadata:
     external-dns.home.arpa/enabled: "true"
     gethomepage.dev/description: Dynamically Detected Homepage
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Cluster Management
-    gethomepage.dev/icon: stack.png
-    gethomepage.dev/name: Stacks
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: si-lighthouse.png
+    gethomepage.dev/name: Headlamp
 spec:
   ingressClassName: external
   rules:

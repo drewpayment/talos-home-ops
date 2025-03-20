@@ -10,7 +10,7 @@ metadata:
     external-dns.home.arpa/enabled: "true"
     gethomepage.dev/description: Affine
     gethomepage.dev/enabled: "true"
-    gethomepage.dev/group: Cluster Management
+    gethomepage.dev/group: Apps
     gethomepage.dev/icon: affine-light.png
     gethomepage.dev/name: Affine
 spec:
