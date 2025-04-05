@@ -4,6 +4,7 @@ metadata:
   name: keycloak
   labels:
     app: keycloak
+  namespace: utilities
 spec:
   ports:
     - name: http
