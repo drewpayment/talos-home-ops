@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: utilities
+  name: utilities-app
   namespace: argocd
 spec:
   project: default
@@ -11,4 +11,4 @@ spec:
     path: argocd/apps/utilities
   destination:
     server: https://kubernetes.default.svc
-    namespace: apps
+    namespace: utilities
