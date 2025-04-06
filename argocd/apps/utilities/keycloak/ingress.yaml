@@ -8,6 +8,11 @@ metadata:
   annotations:
     external-dns.alpha.kubernetes.io/target: "external.drewpayment.com"
     external-dns.home.arpa/enabled: "true"
+    gethomepage.dev/description: Open Source Identity and Access Management
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/group: Apps
+    gethomepage.dev/icon: keycloak.png
+    gethomepage.dev/name: Keycloak
 spec:
   ingressClassName: external
   rules:
