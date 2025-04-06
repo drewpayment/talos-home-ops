@@ -18,11 +18,7 @@ spec:
       containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:26.1.4
-          args: [
-            "start",
-            "--extra-config=apiserver.authorization-mode=Node,RBAC",
-            "--extra-config=apiserver.oidc-username-claim=email"
-          ]
+          args: ["start"]
           env:
             - name: KC_BOOTSTRAP_ADMIN_USERNAME
               valueFrom:
