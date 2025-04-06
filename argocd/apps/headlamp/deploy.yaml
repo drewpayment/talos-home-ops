@@ -20,6 +20,19 @@ spec:
         args:
           - "-in-cluster"
           - "-plugins-dir=/headlamp/plugins"
+        env:
+          - name: HEADLAMP_CONFIG_OIDC_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: cluster-external-secrets
+                key: client-id
+          - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: cluster-external-secrets
+                key: client-secret
+          - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
+            value: "https://id.drewpayment.com/realms/id-drewpayment-com"
         ports:
         - containerPort: 4466
         livenessProbe:
