@@ -33,6 +33,8 @@ spec:
                 key: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
           - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
             value: "https://id.drewpayment.com/realms/id-drewpayment-com"
+          - name: HEADLAMP_CONFIG_OIDC_SCOPES
+            value: "email,profile"
         ports:
         - containerPort: 4466
         livenessProbe:
