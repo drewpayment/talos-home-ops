@@ -20,6 +20,8 @@ spec:
           image: quay.io/keycloak/keycloak:26.1.4
           args: ["start"]
           env:
+            - name: KC_HOSTNAME
+              value: https://id.drewpayment.com
             - name: KC_BOOTSTRAP_ADMIN_USERNAME
               valueFrom:
                 secretKeyRef:

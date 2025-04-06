@@ -1,0 +1,8 @@
+
+cluster:
+  apiServer:
+    extraArgs:
+      oidc-issuer-url: "https://id.drewpayment.com/realms/id-drewpayment-com"
+      oidc-client-id: "headlamp-oidc"
+      oidc-username-claim: "email"
+      oidc-groups-claim: "groups"
