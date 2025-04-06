@@ -25,12 +25,12 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: cluster-external-secrets
-                key: client-id
+                key: HEADLAMP_CONFIG_OIDC_CLIENT_ID
           - name: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
             valueFrom:
               secretKeyRef:
                 name: cluster-external-secrets
-                key: client-secret
+                key: HEADLAMP_CONFIG_OIDC_CLIENT_SECRET
           - name: HEADLAMP_CONFIG_OIDC_IDP_ISSUER_URL
             value: "https://id.drewpayment.com/realms/id-drewpayment-com"
         ports:
