@@ -2,7 +2,7 @@ kind: Ingress
 apiVersion: networking.k8s.io/v1
 metadata:
   name: headlamp
-  namespace: kube-system
+  namespace: headlamp
   labels:
     app.kubernetes.io/name: headlamp
   annotations:

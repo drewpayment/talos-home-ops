@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: create-headlamp-token
-  namespace: kube-system
+  namespace: headlamp
 spec:
   template:
     spec:
@@ -24,4 +24,3 @@ spec:
       - name: token-volume
         emptyDir: {}
       restartPolicy: Never
- 
