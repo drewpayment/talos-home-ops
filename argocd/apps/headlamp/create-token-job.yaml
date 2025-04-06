@@ -14,7 +14,7 @@ spec:
         - /bin/bash
         - -c
         - |
-          TOKEN=$(kubectl create token headlamp -n kube-system)
+          TOKEN=$(kubectl create token headlamp -n headlamp)
           echo "Token: $TOKEN"
           echo "$TOKEN" > /tmp/token/token.txt
         volumeMounts:
