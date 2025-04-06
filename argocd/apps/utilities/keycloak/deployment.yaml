@@ -45,6 +45,37 @@ spec:
                 secretKeyRef:
                   name: cluster-external-secrets
                   key: KC_HEALTH_ENABLED
+            - name: KC_DB
+              value: postgres
+            - name: KC_DB_URL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-external-secrets
+                  key: POSTGRES_DB_HOST
+            - name: KC_DB_URL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-external-secrets
+                  key: POSTGRES_DB_PORT
+            - name: KC_DB_POOL_MAX_SIZE
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-external-secrets
+                  key: POSTGRES_MAX_CONNECTIONS
+            - name: KC_DB_SCHEMA
+              value: public
+            - name: KC_DB_URL_DATABASE
+              value: keycloak
+            - name: KC_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-external-secrets
+                  key: POSTGRES_DB_USER
+            - name: KC_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cluster-external-secrets
+                  key: POSTGRES_DB_PASSWORD
           ports:
             - name: http
               containerPort: 8080
