@@ -24,3 +24,6 @@ Brewfile.lock.json
 wiki
 # Bootstrap
 /config.yaml
+*.crt
+*.b64
+*.csr
